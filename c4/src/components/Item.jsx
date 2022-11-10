@@ -21,8 +21,8 @@ const Item = ({item, i}) => {
   
 
   return (
-    <div className='flex flex-col p-3 gap-2 bg-slate-200 rounded-sm shadow cursor-pointer' key={i} onClick={() =>setIsOpen(!isOpen)}>
-      <div className='grid grid-cols-5 gap-1'>
+    <div className='flex flex-col p-3 gap-2 bg-slate-200 rounded-sm shadow cursor-pointer' key={i} >
+      <div className='grid grid-cols-5 gap-1' onClick={() =>setIsOpen(!isOpen)}>
 
         {
           

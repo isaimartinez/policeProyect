@@ -20,8 +20,6 @@ export const onPostData = async (req, res) => {
   console.log(user)
   let finish = false
   try {
-    console.log("Success", user.latitude, user.longitude)
-
     let timer = setTimeout(() => {
       console.log("ADDRESS NOT WORKING")
       data.push(user)
