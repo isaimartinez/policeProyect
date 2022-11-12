@@ -13,11 +13,11 @@ const Main = () => {
   
   const handleSos = async () => {
     Geolocation.getCurrentPosition(info => {
-      let d = new Date()
+      // let d = new Date()
       let userData = {
         ...info.coords,
         ...user,
-        date: d.toString(),
+        // date: d.toString(),
         id: genId()
       }
       sendData(userData)

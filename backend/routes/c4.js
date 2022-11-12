@@ -1,9 +1,9 @@
 import express from 'express';
-import { onLoad, onPostData, getData} from '../controllers/c4.js';
+import { onLoad, createIncidencia, getData} from '../controllers/c4.js';
 const router = express.Router();
 
 router.get('/', onLoad);
-router.post('/postData', onPostData);
+router.post('/postData', createIncidencia);
 router.get('/getData', getData)
 
 

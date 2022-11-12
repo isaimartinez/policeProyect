@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const zonaSchema = mongoose.Schema({
-  idZone: String,
-  coords: [{lat: String, lng: String}]
+  idZone: {type: String, required: true},
+  coords: [{lat: Number, lng: Number}]
 })
 
-export default mongoose.model('Zona', zonaSchema)
+export default mongoose.model('Zonas', zonaSchema)

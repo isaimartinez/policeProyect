@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { WebSocketServer } from 'ws';
+import mongoose from "mongoose";
+
 import c4Routes from './routes/c4.js'
 
 const app = express();
@@ -25,6 +27,8 @@ wss.on('connection', function connection(ws) {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => 
-  console.log(`Server running on port: ${PORT}`))
+mongoose.connect(process.env.CONNECTION_URL)
+  .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
+  .catch((er) => console.log("error",er.message));
+
 

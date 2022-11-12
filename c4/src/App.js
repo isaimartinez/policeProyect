@@ -17,6 +17,7 @@ function App()  {
   const dispatch = useDispatch()
 
   const onLoad = async () => {
+    console.log("onload")
     let {data} = await fetchData()
     dispatch(setIncidencias(data.data))
   }

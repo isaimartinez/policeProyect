@@ -1,13 +1,14 @@
 import mongoose from "mongoose";
 
 const incidenciaSchema = mongoose.Schema({
-  altitude: String,
-  altitudeAccuracy: String,
-  latitude: String,
-  accuracy: String,
-  longitude: String,
-  heading: String,
-  speed: String,
+  altitude: Number,
+  altitudeAccuracy: Number,
+  latitude: Number,
+  accuracy: Number,
+  longitude: Number,
+  heading: Number,
+  speed: Number,
+  address: String,
   phoneNumber: String,
   name: String,
   id: String,
