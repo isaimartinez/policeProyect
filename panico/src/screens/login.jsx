@@ -3,8 +3,8 @@ import React,{useState} from 'react'
 import {TextField, Button} from '../components'
 import { useSelector, useDispatch } from 'react-redux'
 import { saveData } from '../redux/reducers/mainSlice'
-import logo from '../assets/logoColon.jpeg'
-import footer from '../assets/jvl.png'
+import logo from '../assets/estrella.jpg'
+import footer from '../assets/footer.jpeg'
 const Login = () => {
   const dispatch = useDispatch()
   const [phoneNumber, setPhoneNumber] = useState("")
