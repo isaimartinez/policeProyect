@@ -26,9 +26,9 @@ export const createIncidencia = async (req, res) => {
   console.log(incidencia)
   try {
     let address = await getAddress(incidencia.latitude, incidencia.longitude)
-    let zona = await getZone(incidencia.latitude, incidencia.longitude)
-    return false
-    const newIncidencia = new IncidenciaMessage({...incidencia, address: address.data.results[1].formatted_address, createdAt: new Date().toISOString()});
+    let zone = await getZone(incidencia.latitude, incidencia.longitude)
+    console.log(zone)
+    const newIncidencia = new IncidenciaMessage({...incidencia, address: address.data.results[1].formatted_address, ...zone, status: 0, createdAt: new Date().toISOString()});
     await newIncidencia.save();
     req.app.locals.ws.send(JSON.stringify(newIncidencia))
     res.status(201).json("OK");

@@ -9,11 +9,11 @@ export const getZone = async (lat, lng) => {
   const  zonas = await zonasModel.find()
   for (let i = 0; i < zonas.length; i++) {
     const z = zonas[i];
-    console.log("coords")
-    let response =  PolyUtil.containsLocation(
-      {lat: lat, lng: lng}, // point object {lat, lng}
-      z.coords
-    );
-    console.log("response ", response)
+    let response =  PolyUtil.containsLocation({lat: lat, lng: lng},z.coords);
+    if(response){
+      return { idZone: z.idZone, zone: z.name}
+    }
   }
+  return {idZone: 0, name: "Out Of Range"}
 }
+

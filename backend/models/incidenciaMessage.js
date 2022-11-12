@@ -13,6 +13,7 @@ const incidenciaSchema = mongoose.Schema({
   name: String,
   id: String,
   zone: String,
+  idZone: Number,
   status: String,
   createdAt: {
     type: Date,
