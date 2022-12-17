@@ -1,69 +1,86 @@
 import React from 'react'
-import {Link, NavLink} from 'react-router-dom'
-import { GiMineTruck } from 'react-icons/gi'
-import { FaChartLine } from 'react-icons/fa'
-import {MdOutlineCancel} from 'react-icons/md'
+
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import TextField from '@mui/material/TextField';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Chip from '@mui/material/Chip';
 
 import { useSelector, useDispatch } from 'react-redux'
 import { setActiveMenu} from '../redux/reducers/viewSlice'
 
-
-import { links } from '../data/data'
+import { MenuProps, getStyles } from '../utils'
+import {setDate, setSelectedZones} from '../redux/reducers/dataSlice'
 
 const Sidebar = () => {
   const state = useSelector((state) => state)
   const dispatch = useDispatch()
+  const theme = useTheme();
 
-  const {activeMenu, screenSize } = state.view
-  const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2'
-  const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2'
+  const {activeMenu } = state.view
+  const {date, selectedZones, zones} = state.data
 
-  const handleCloseSideBar = () => {
-    if(activeMenu && screenSize <= 900){
-      dispatch(setActiveMenu(false))
-    }
-  }
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    dispatch(setSelectedZones(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    ));
+  };
 
   return (
-    <div className='flex z-10 fixed top-0 left-0 ml-3 h-screen overflow-auto md:hover:overflow-auto pb-10'>
+    <div className='flex z-10 bg-white fixed top-0 shadow left-0 h-screen overflow-auto'>
       {
         activeMenu && ( <>
-          <div className='flex justify-between items-center'>
-            <Link to='/' 
-              onClick={handleCloseSideBar} 
-              className='items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold -tracking-tight dark:text-white text-slate-900'
-            >
-              <FaChartLine/> C4 View
-            </Link>
-              <button type='button' onClick={() => {
-                 dispatch(setActiveMenu(false))
-              }}
-                className='text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden'
-              >
-                <MdOutlineCancel/> 
-              </button>
-          </div>
-          <div className='mt-10'>
-            {links.map((item) => (
-              <div key={item.title}>
-              <p className='text-gray-400 m-3 mt-4 uppercase'>
-                {item.title}
-              </p>
-              { item.links.map((l) => (
-                <NavLink to={`/${l.name}`} key={l.name}
-                  onClick={handleCloseSideBar} 
-                  style={({isActive}) =>  ({
-                    backgroundColor: isActive ?  "black" : ''
-                  })}
-                  className={({isActive}) => isActive ? activeLink : normalLink}
+          <div className='flex flex-col mt-20 p-2 w-72 items-center'>
+              <LocalizationProvider  dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                  className='bg-white flex w-[250px] '
+                  style={{width: 250}}
+                  inputFormat="MM/DD/YYYY"
+                  value={date}
+                  onChange={newDate =>dispatch(setDate(newDate))}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+              <FormControl className='bg-white' sx={{ m: 1, width: 250 }}>
+                <InputLabel id="chipLabel">Zonas</InputLabel>
+                <Select
+                  labelId="chipLabel"
+                  id="demo-multiple-chip"
+                  multiple
+                  value={selectedZones}
+                  onChange={handleChange}
+                  input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                  renderValue={(selected) => (
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                      {selected.map((value) => (
+                        <Chip key={value} label={value} />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={MenuProps}
                 >
-                  {l.icon}
-                  <span className='capitalize'>{l.name}</span>
-                </NavLink>
-              ))
-              }
-              </div>
-            ))}
+                  {zones.map(({name}) => (
+                    <MenuItem
+                      key={name}
+                      value={name}
+                      style={getStyles(name, selectedZones, theme)}
+                    >
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
           </div>
         </>)
       }
