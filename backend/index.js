@@ -22,8 +22,6 @@ wss.on('connection', function connection(ws) {
   ws.on('message', function message(data) {
     console.log('received: %s', data);
   });
-
-  // ws.send('Que rollo');
 });
 
 const PORT = process.env.PORT || 5000;

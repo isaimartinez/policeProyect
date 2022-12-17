@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import {getAddress, getZone} from '../APIs/index.js'
 import IncidenciaMessage from '../models/incidenciaMessage.js'
+import ZonasModel from '../models/zonas.js'
 
 
 // let data = [{
@@ -35,6 +36,19 @@ export const createIncidencia = async (req, res) => {
   } catch (error) {
     console.log(error.message)
   }
+}
+
+export const getZones = async (req, res) => {
+  try {
+    console.log("zonas entre")
+    const  zonas = await ZonasModel.find()
+    console.log("zonas", zonas)
+    res.status(201).json(zonas);
+    
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+
 }
 
 export const getData = async (req, res) => {

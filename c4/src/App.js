@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import { fetchData, getAddress } from './APIs/index'
+import { fetchData, getAddress, fetchZones } from './APIs/index'
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {Sidebar, Navbar} from './components'
-import {Main} from './pages/'
-import {setIncidencias} from './redux/reducers/dataSlice'
+import {Map, Login} from './pages/'
+import {setIncidencias, setZones} from './redux/reducers/dataSlice'
 
 function App()  {
   const state = useSelector((state) => state)
@@ -19,7 +19,10 @@ function App()  {
   const onLoad = async () => {
     console.log("onload")
     let {data} = await fetchData()
+    let zones = await fetchZones()
+    console.log("jey", zones)
     dispatch(setIncidencias(data.data))
+    dispatch(setZones(zones.data))
   }
 
 
@@ -47,33 +50,12 @@ function App()  {
     <div>
       <BrowserRouter>
         <div className='flex relative dark:bg-main-dark-bg'>
-          {activeMenu ? (
-            <div
-              className='w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white'
-            >
-              <Sidebar />
-            </div>
-          ) : (
-            <div className='w-0 dark:bg-secondary-dark-bg'>
-              <Sidebar />
-            </div>
-          )}
-          <div
-            className={
-              activeMenu
-                ? 'dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full  '
-                : 'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 '
-            }
-          >
-
-            <div className='fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full'>
-              <Navbar/>
-            </div>
-
+          <div className={'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2'}>
             <div>
               <Routes>
-                <Route path='/' element={<Main/>}/>
-                <Route path='/C4' element={<Main/>}/>
+                <Route path='/' element={<Map/>}/>
+                <Route path='/C4' element={<Map/>}/>
+                <Route path='/login' element={<Login/>}/>
               </Routes>
             </div>
             

@@ -1,58 +1,101 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {AiOutlineMenu} from 'react-icons/ai'
-
+import {FaCog} from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
-import { setActiveMenu, setScreenSize } from '../redux/reducers/viewSlice'
-import logo from '../assets/logoColon.jpeg'
+import { setActiveMenu } from '../redux/reducers/viewSlice'
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import TextField from '@mui/material/TextField';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Chip from '@mui/material/Chip';
 
-const NavButton = ({title, customFunc, icon, color, dotColor}) => (
+import { ITEM_HEIGHT, ITEM_PADDING_TOP, MenuProps, getStyles, names } from '../utils'
+import {setDate, setSelectedZones} from '../redux/reducers/dataSlice'
+
+const NavButton = ({title, customFunc, icon, color}) => (
   <button type='button' onClick={customFunc} style={{color}}
-    className='relative text-xl rounded-full p-3 hover:bg-light-gray '
+    className='relative flex flex-row items-center bg-white shadow text-xl rounded-full p-3 hover:bg-light-gray '
   >
-    <span style={{background: dotColor}}
-      className='absolute inline-flex rounded-full h-2 w-2 right-2 top-2'
-    />
-    {icon}
+    {icon} {title}
   </button>
 )
 
 const NavBar = () => {
   const dispatch = useDispatch()
+  const theme = useTheme();
 
   const state = useSelector((state) => state)
-  const {  screenSize, activeMenu} = state.view
-  useEffect(() => {
-    const handleResize = () => dispatch(setScreenSize(window.innerWidth))
+  const {activeMenu} = state.view
+  const {date, selectedZones, zones} = state.data
 
-    window.addEventListener('resize', handleResize)
-
-    handleResize()
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
-  useEffect(() => {
-    if(screenSize <= 900){
-      dispatch(setActiveMenu(false))
-    } else {
-      dispatch(setActiveMenu(true))
-    }
-    
-    return () => {
-      
-    }
-  }, [screenSize])
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    dispatch(setSelectedZones(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    ));
+  };
 
   return (
-    <div className='flex justify-between items-center p-2 md:mx-6 relative'>
-      <NavButton title="Menu" color={"black"} icon={<AiOutlineMenu/>}
-        customFunc={() => dispatch(setActiveMenu(!activeMenu))}
-      />
-      <div>
-        <p className='font-bold text-xl'>C4</p>
+    <div className='flex z-10 fixed top-0 left-0 w-full bg-transparent justify-between p-3'>
+      <div className='flex flex-row gap-5'>
+        <NavButton color={"black"} icon={<AiOutlineMenu/>}
+          customFunc={() => dispatch(setActiveMenu(!activeMenu))}
+        />
+        {/* <div className='flex'>
+
+        <FormControl className='bg-white shadow' sx={{ m: 1, width: 600 }}>
+          <InputLabel id="demo-multiple-chip-label">Sectores</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={selectedZones}
+            onChange={handleChange}
+            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {zones.map(({name}) => (
+              <MenuItem
+                key={name}
+                value={name}
+                style={getStyles(name, selectedZones, theme)}
+              >
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DesktopDatePicker
+            className='bg-white shadow'
+            inputFormat="MM/DD/YYYY"
+            value={date}
+            onChange={newDate =>dispatch(setDate(newDate))}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
+        </div> */}
+
       </div>
-      <img src={logo} className="w-24 h-24 rounded"/>
+      <NavButton color={"black"} icon={<FaCog/>}/>
     </div>
   )
 }
