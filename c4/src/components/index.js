@@ -1,3 +1,5 @@
 export {default as Item} from './Item'
 export {default as Sidebar} from './Sidebar'
 export {default as Navbar} from './Navbar'
+export {default as RequireAuth} from './RequireAuth'
+export {default as Layout} from './Layout'

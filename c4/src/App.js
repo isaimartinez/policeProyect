@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import { fetchData, getAddress, fetchZones } from './APIs/index'
 import useWebSocket, { ReadyState } from 'react-use-websocket';
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, Navigate, useNavigate} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import {Sidebar, Navbar} from './components'
+import {Sidebar, Navbar, RequireAuth, Layout} from './components'
 import {Map, Login} from './pages/'
 import {setIncidencias, setZones} from './redux/reducers/dataSlice'
 
@@ -15,6 +15,7 @@ function App()  {
   const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8085');
 
   const dispatch = useDispatch()
+
 
   const onLoad = async () => {
     console.log("onload")
@@ -53,9 +54,14 @@ function App()  {
           <div className={'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2'}>
             <div>
               <Routes>
-                <Route path='/' element={<Map/>}/>
-                <Route path='/C4' element={<Map/>}/>
-                <Route path='/login' element={<Login/>}/>
+                <Route path="/" element={<Layout />}>
+                  {/* Public */}
+                  <Route path='login' element={<Login /> }/>
+                </Route>
+                {/* Private */}
+                <Route element={<RequireAuth  />}>
+                  <Route path="/" element={<Map />} />
+                </Route>
               </Routes>
             </div>
             
