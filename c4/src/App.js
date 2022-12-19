@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import { fetchData, getAddress, fetchZones } from './APIs/index'
+import React, {useEffect} from 'react'
+import { fetchData, fetchZones } from './APIs/index'
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import {BrowserRouter, Routes, Route, Navigate, useNavigate} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -11,11 +11,10 @@ function App()  {
   const state = useSelector((state) => state)
   const {activeMenu} = state.view
   const {incidencias} = state.data
-  
+  const {authData} = state.auth
   const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8085');
 
   const dispatch = useDispatch()
-
 
   const onLoad = async () => {
     console.log("onload")
@@ -25,7 +24,6 @@ function App()  {
     dispatch(setIncidencias(data.data))
     dispatch(setZones(zones.data))
   }
-
 
   useEffect(() => {
       onLoad()
@@ -38,6 +36,11 @@ function App()  {
       dispatch(setIncidencias([...incidencias, obj]))
     }
   }, [lastMessage, setIncidencias]);
+
+  useEffect(() => {
+    console.log("cambia auth")
+  }, [authData])
+  
 
   const connectionStatus = {
     [ReadyState.CONNECTING]: 'Connecting',
@@ -57,10 +60,10 @@ function App()  {
                 <Route path="/" element={<Layout />}>
                   {/* Public */}
                   <Route path='login' element={<Login /> }/>
-                </Route>
-                {/* Private */}
-                <Route element={<RequireAuth  />}>
-                  <Route path="/" element={<Map />} />
+                  {/* Private */}
+                  <Route element={<RequireAuth  />}>
+                    <Route path="/" element={<Map />} />
+                  </Route>
                 </Route>
               </Routes>
             </div>
