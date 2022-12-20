@@ -1,11 +1,11 @@
 import express from 'express';
-import { onLoad, createIncidencia, getData, getZones} from '../controllers/c4.js';
+import auth from '../middleware/auth.js'
+import { createIncidencia, getData, getZones} from '../controllers/c4.js';
 const router = express.Router();
 
-router.get('/', onLoad);
-router.post('/postData', createIncidencia);
-router.get('/getData', getData)
+router.get('/getData', auth, getData)
 router.get('/getZones', getZones)
+router.post('/postData', createIncidencia);
 
 
 export default router;

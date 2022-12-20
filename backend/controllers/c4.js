@@ -9,18 +9,6 @@ import ZonasModel from '../models/zonas.js'
 //   coords: {latitude: 20.65497066082328, longitude: -100.09922948136055, speed: -1, accuracy: 5}
 // }]
 
-
-export const onLoad = async (req, res) => {
-  try {
-    console.log("Success")
-    const data = await IncidenciaMessage.find()
-    console.log("data", data)
-    res.status(201).json({ data });
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-}
-
 export const createIncidencia = async (req, res) => {
   const { incidencia} = req.body
   
@@ -40,11 +28,8 @@ export const createIncidencia = async (req, res) => {
 
 export const getZones = async (req, res) => {
   try {
-    console.log("zonas entre")
     const  zonas = await ZonasModel.find()
-    console.log("zonas", zonas)
     res.status(201).json(zonas);
-    
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

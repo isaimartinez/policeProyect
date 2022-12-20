@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react'
 import { useNavigate} from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import {fetchLogin} from '../redux/reducers/authSlice'
 
@@ -12,18 +12,6 @@ const Login = () => {
   const [key, setKey] = useState("71e9862a-c1de-455a-8f1d-71d5f998e6a8")
   const dispatch = useDispatch()
   
-  const state = useSelector((state) => state)
-  const {authData} = state.auth
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if(authData){
-      navigate("/")
-    } else {
-      navigate("/login")
-
-    }
-  }, [authData])
   
 
   const handleLogin = () => {

@@ -45,7 +45,7 @@ const Sidebar = () => {
     <div className='flex z-10 bg-white fixed top-0 shadow left-0 h-screen overflow-auto'>
       {
         activeMenu && ( <>
-          <div className='flex flex-col w-72 justify-between my-20'>
+          <div className='flex flex-col w-72 justify-between mt-20 mb-10'>
             <div className='flex flex-col items-center'>
               <LocalizationProvider  dateAdapter={AdapterDayjs}>
                 <DesktopDatePicker

@@ -9,7 +9,6 @@ import {setIncidencias, setZones} from './redux/reducers/dataSlice'
 
 function App()  {
   const state = useSelector((state) => state)
-  const {activeMenu} = state.view
   const {incidencias} = state.data
   const {authData} = state.auth
   const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8085');
@@ -18,6 +17,8 @@ function App()  {
 
   const onLoad = async () => {
     console.log("onload")
+    let user = localStorage.getItem('profile')
+    console.log("user", user)
     let {data} = await fetchData()
     let zones = await fetchZones()
     console.log("jey", zones)
@@ -28,6 +29,16 @@ function App()  {
   useEffect(() => {
       onLoad()
   }, [])
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(authData){
+      navigate("/")
+    } else {
+      navigate("/login")
+
+    }
+  }, [authData])
 
   useEffect(() => {
     if (lastMessage !== null) {
@@ -47,7 +58,7 @@ function App()  {
 
   return (
     <div>
-      <BrowserRouter>
+      {/* <BrowserRouter> */}
         <div className='flex relative dark:bg-main-dark-bg'>
           <div className={'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2'}>
             <div>
@@ -65,7 +76,7 @@ function App()  {
             
           </div>
         </div>
-      </BrowserRouter>
+      {/* </BrowserRouter> */}
     </div>
   )
 
