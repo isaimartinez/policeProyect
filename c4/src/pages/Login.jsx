@@ -18,8 +18,10 @@ const Login = () => {
 
   useEffect(() => {
     if(authData){
-      console.log("navigate")
       navigate("/")
+    } else {
+      navigate("/login")
+
     }
   }, [authData])
   

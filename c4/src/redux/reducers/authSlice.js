@@ -34,7 +34,6 @@ export const authSlice = createSlice({
         console.log("has to redirect")
         localStorage.setItem('profile', JSON.stringify({...action?.payload}))
         state.authData = action?.payload
-        redirect("/")
       })
     },
 })

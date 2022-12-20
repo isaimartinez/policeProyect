@@ -37,11 +37,6 @@ function App()  {
     }
   }, [lastMessage, setIncidencias]);
 
-  useEffect(() => {
-    console.log("cambia auth")
-  }, [authData])
-  
-
   const connectionStatus = {
     [ReadyState.CONNECTING]: 'Connecting',
     [ReadyState.OPEN]: 'Open',

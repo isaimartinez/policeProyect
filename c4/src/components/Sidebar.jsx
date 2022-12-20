@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -12,9 +11,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import {FaSignOutAlt} from 'react-icons/fa'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { setActiveMenu} from '../redux/reducers/viewSlice'
+import {logout} from '../redux/reducers/authSlice'
 
 import { MenuProps, getStyles } from '../utils'
 import {setDate, setSelectedZones} from '../redux/reducers/dataSlice'
@@ -37,11 +37,16 @@ const Sidebar = () => {
     ));
   };
 
+  const handleLogout = () => {
+    dispatch(logout())
+  }
+
   return (
     <div className='flex z-10 bg-white fixed top-0 shadow left-0 h-screen overflow-auto'>
       {
         activeMenu && ( <>
-          <div className='flex flex-col mt-20 p-2 w-72 items-center'>
+          <div className='flex flex-col w-72 justify-between my-20'>
+            <div className='flex flex-col items-center'>
               <LocalizationProvider  dateAdapter={AdapterDayjs}>
                 <DesktopDatePicker
                   className='bg-white flex w-[250px] '
@@ -81,6 +86,13 @@ const Sidebar = () => {
                   ))}
                 </Select>
               </FormControl>
+            </div>
+            <div className='flex flex-row justify-center items-center cursor-pointer gap-2 hover:bg-slate-100 rounded m-2 p-1'
+              onClick={handleLogout}
+            >
+                <FaSignOutAlt />
+                <p>Cerrar Sesión</p>      
+            </div>
           </div>
         </>)
       }
