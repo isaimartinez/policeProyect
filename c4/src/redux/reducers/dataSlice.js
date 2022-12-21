@@ -1,12 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import dayjs from 'dayjs';
+import {postNewZone} from '../../APIs/'
+import { toast } from 'react-toastify';
 
 const initialState = {
   incidencias: [],
   date: dayjs(),
   selectedZones: [],
-  zones: []
+  zones: [],
+  tempZone: {name: "", coords: [], color: ""}
 }
+
+export const saveZone = createAsyncThunk(
+  'data/saveZone',
+  async (zone) => {
+    const {data} = await postNewZone(zone)
+    toast.success('Zona Guardada Exitosamente', {
+      position: "top-right",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    console.log("saved")
+    return data
+  }
+
+)
 
 export const viewSlice = createSlice({
     name: 'data',
@@ -23,10 +46,18 @@ export const viewSlice = createSlice({
       },
       setZones: (state, action) => {
         state.zones = action.payload
+      },
+      setTempZone: (state, action) => {
+        state.tempZone = action.payload
       }
+    },
+    extraReducers: (builder) => {
+      builder.addCase(saveZone.fulfilled, (state, action) => {
+        state.zones.push(action?.payload)
+      })
     },
 })
   
-export const { setIncidencias, setDate, setSelectedZones, setZones} = viewSlice.actions
+export const { setIncidencias, setDate, setSelectedZones, setZones, setTempZone} = viewSlice.actions
 
 export default viewSlice.reducer

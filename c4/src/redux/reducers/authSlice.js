@@ -11,7 +11,6 @@ export const fetchLogin = createAsyncThunk(
   'auth/fetchLogin',
   async (user) => {
     const {data} = await signIn(user)
-    console.log("login", data)
     return data
   }
 )
@@ -31,7 +30,6 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
       builder.addCase(fetchLogin.fulfilled, (state, action) => {
-        console.log("has to redirect")
         localStorage.setItem('profile', JSON.stringify({...action?.payload}))
         state.authData = action?.payload
       })

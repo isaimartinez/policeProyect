@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken'
 
 export const signin = async (req, res) => {
   const { id, key} = req.body
-  console.log("id ", id, " key ", key)
   try {
     const existingUser = await UserModel.findOne({id});
 

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import {getAddress, getZone} from '../APIs/index.js'
 import IncidenciaMessage from '../models/incidenciaMessage.js'
-import ZonasModel from '../models/zonas.js'
+import ZoneModel from '../models/zonas.js'
 
 
 // let data = [{
@@ -22,13 +22,26 @@ export const createIncidencia = async (req, res) => {
     req.app.locals.ws.send(JSON.stringify(newIncidencia))
     res.status(201).json("OK");
   } catch (error) {
+    res.status(501).json({ message: error.message });
     console.log(error.message)
+  }
+}
+
+export const createZone = async (req, res) => {
+  const {zone} = req.body
+  try {
+    let idZone = "id" + Math.random().toString(16).slice(2)
+    const newZone = new ZoneModel({...zone, idZone})
+    await newZone.save()
+    res.status(201).json(zone);
+  } catch (error) {
+    res.status(501).json({ message: error.message });
   }
 }
 
 export const getZones = async (req, res) => {
   try {
-    const  zonas = await ZonasModel.find()
+    const  zonas = await ZoneModel.find()
     res.status(201).json(zonas);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -38,9 +51,7 @@ export const getZones = async (req, res) => {
 
 export const getData = async (req, res) => {
   try {
-    console.log("Success")
     const data = await IncidenciaMessage.find()
-    console.log("data", data)
     res.status(201).json({ data });
   } catch (error) {
     res.status(404).json({ message: error.message });

@@ -20,4 +20,6 @@ export const center = {
 
 export const mapOptions = {
   disableDefaultUI: true,
+  minZoom: 12,
+  maxZoom: 17,
 }

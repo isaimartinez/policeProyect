@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {Sidebar, Navbar, RequireAuth, Layout} from './components'
 import {Map, Login} from './pages/'
 import {setIncidencias, setZones} from './redux/reducers/dataSlice'
+import {auth} from './redux/reducers/authSlice'
 
 function App()  {
   const state = useSelector((state) => state)
@@ -16,12 +17,13 @@ function App()  {
   const dispatch = useDispatch()
 
   const onLoad = async () => {
-    console.log("onload")
-    let user = localStorage.getItem('profile')
-    console.log("user", user)
+    let user = JSON.parse(localStorage.getItem('profile'))
+    if(user) {
+      dispatch(auth(user))
+    }
     let {data} = await fetchData()
     let zones = await fetchZones()
-    console.log("jey", zones)
+    console.log("zones", zones.data)
     dispatch(setIncidencias(data.data))
     dispatch(setZones(zones.data))
   }

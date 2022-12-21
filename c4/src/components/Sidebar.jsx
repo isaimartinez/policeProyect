@@ -11,6 +11,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
 import {FaSignOutAlt} from 'react-icons/fa'
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,13 +21,15 @@ import {logout} from '../redux/reducers/authSlice'
 
 import { MenuProps, getStyles } from '../utils'
 import {setDate, setSelectedZones} from '../redux/reducers/dataSlice'
+import {setShowZones, setShowTraffic} from '../redux/reducers/viewSlice'
+import {NewZone} from './'
 
 const Sidebar = () => {
   const state = useSelector((state) => state)
   const dispatch = useDispatch()
   const theme = useTheme();
 
-  const {activeMenu } = state.view
+  const {activeMenu, showZones, showTraffic } = state.view
   const {date, selectedZones, zones} = state.data
 
   const handleChange = (event) => {
@@ -40,6 +45,7 @@ const Sidebar = () => {
   const handleLogout = () => {
     dispatch(logout())
   }
+
 
   return (
     <div className='flex z-10 bg-white fixed top-0 shadow left-0 h-screen overflow-auto'>
@@ -86,6 +92,11 @@ const Sidebar = () => {
                   ))}
                 </Select>
               </FormControl>
+              <FormControl className='bg-white' sx={{ m: 1, width: 250 }}>
+                <FormControlLabel className='bg-white mx-1' control={<Checkbox checked={showZones} onChange	={(e) => {dispatch(setShowZones(!showZones))}} />} label="Mostrar Zonas" />
+                <FormControlLabel className='bg-white' control={<Checkbox checked={showTraffic} onChange	={(e) => {dispatch(setShowTraffic(!showTraffic))}} />} label="Mostrar Tráfico" />
+              </FormControl>
+              <NewZone />
             </div>
             <div className='flex flex-row justify-center items-center cursor-pointer gap-2 hover:bg-slate-100 rounded m-2 p-1'
               onClick={handleLogout}

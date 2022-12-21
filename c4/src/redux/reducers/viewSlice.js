@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   activeMenu: false,
-  screenSize: undefined
+  drawingZone: false,
+  showZones: false,
+  showTraffic: false
 }
 
 export const viewSlice = createSlice({
@@ -12,12 +14,18 @@ export const viewSlice = createSlice({
       setActiveMenu: (state, action) => {
         state.activeMenu = action.payload
       },
-      setScreenSize: (state, action) => {
-        state.screenSize = action.payload
+      setDrawingZone: (state, action) => {
+        state.drawingZone = action.payload
+      },
+      setShowZones: (state, action) => {
+        state.showZones = action.payload
+      },
+      setShowTraffic: (state, action) => {
+        state.showTraffic = action.payload
       }
     },
 })
   
-export const { setActiveMenu, setScreenSize} = viewSlice.actions
+export const { setActiveMenu, setDrawingZone, setShowZones, setShowTraffic } = viewSlice.actions
 
 export default viewSlice.reducer
