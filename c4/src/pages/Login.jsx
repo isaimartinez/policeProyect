@@ -3,9 +3,8 @@ import { useNavigate} from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux'
-
 import {fetchLogin} from '../redux/reducers/authSlice'
-
+import {onLoad} from '../APIs/onLoad'
 
 const Login = () => {
   const [id, setId] = useState("848b1a03-d950-4978-82ae-3a3dcfedf943")
@@ -16,14 +15,14 @@ const Login = () => {
 
   const handleLogin = () => {
     dispatch(fetchLogin({id, key}))
-    setTimeout(() => {
-      
+    setTimeout(async () => {
+      onLoad()
     }, 2000);
   }
 
   return (
     <div className='flex w-full h-screen m-auto justify-center items-center'>
-      <div className='flex flex-col gap-5 w-80'>
+      <div className='flex flex-col gap-5 w-96'>
         <TextField id="filled-basic" label="Id" variant="filled" value={id} onChange={e => setId(e.target.value)}/>
         <TextField id="filled-basic" label="Password" variant="filled" value={key} onChange={e => setKey(e.target.value)}/>
 

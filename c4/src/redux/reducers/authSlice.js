@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import {signIn} from '../../APIs'
-import {redirect} from 'react-router-dom'
 
 const initialState = {
   authData: null

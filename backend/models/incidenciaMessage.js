@@ -12,8 +12,9 @@ const incidenciaSchema = mongoose.Schema({
   phoneNumber: String,
   name: String,
   id: String,
-  zone: String,
-  idZone: Number,
+  zoneName: String,
+  idZone: String,
+  color: String,
   status: String,
   createdAt: {
     type: Date,

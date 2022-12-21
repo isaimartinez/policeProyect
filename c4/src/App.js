@@ -1,37 +1,23 @@
 import React, {useEffect} from 'react'
-import { fetchData, fetchZones } from './APIs/index'
 import useWebSocket, { ReadyState } from 'react-use-websocket';
-import {BrowserRouter, Routes, Route, Navigate, useNavigate} from 'react-router-dom'
+import { Routes, Route, Navigate, useNavigate} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import {Sidebar, Navbar, RequireAuth, Layout} from './components'
+import { RequireAuth, Layout} from './components'
 import {Map, Login} from './pages/'
 import {setIncidencias, setZones} from './redux/reducers/dataSlice'
-import {auth} from './redux/reducers/authSlice'
+import {onLoad} from './APIs/onLoad'
 
 function App()  {
   const state = useSelector((state) => state)
   const {incidencias} = state.data
   const {authData} = state.auth
   const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8085');
-
   const dispatch = useDispatch()
-
-  const onLoad = async () => {
-    let user = JSON.parse(localStorage.getItem('profile'))
-    if(user) {
-      dispatch(auth(user))
-    }
-    let {data} = await fetchData()
-    let zones = await fetchZones()
-    console.log("zones", zones.data)
-    dispatch(setIncidencias(data.data))
-    dispatch(setZones(zones.data))
-  }
+  const navigate = useNavigate()
 
   useEffect(() => {
-      onLoad()
+      onLoad(dispatch)
   }, [])
-  const navigate = useNavigate()
 
   useEffect(() => {
     if(authData){
@@ -60,25 +46,23 @@ function App()  {
 
   return (
     <div>
-      {/* <BrowserRouter> */}
-        <div className='flex relative dark:bg-main-dark-bg'>
-          <div className={'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2'}>
-            <div>
-              <Routes>
-                <Route path="/" element={<Layout />}>
-                  {/* Public */}
-                  <Route path='login' element={<Login /> }/>
-                  {/* Private */}
-                  <Route element={<RequireAuth  />}>
-                    <Route path="/" element={<Map />} />
-                  </Route>
+      <div className='flex relative dark:bg-main-dark-bg'>
+        <div className={'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2'}>
+          <div>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                {/* Public */}
+                <Route path='login' element={<Login /> }/>
+                {/* Private */}
+                <Route element={<RequireAuth  />}>
+                  <Route path="/" element={<Map />} />
                 </Route>
-              </Routes>
-            </div>
-            
+              </Route>
+            </Routes>
           </div>
+          
         </div>
-      {/* </BrowserRouter> */}
+      </div>
     </div>
   )
 
