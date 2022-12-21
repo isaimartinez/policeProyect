@@ -11,7 +11,7 @@ export const getZone = async (lat, lng) => {
     const z = zonas[i];
     let response =  PolyUtil.containsLocation({lat: lat, lng: lng},z.coords);
     if(response){
-      return { idZone: z.idZone, zone: z.name}
+      return { idZone: z.idZone, zone: z.name, color: z.color}
     }
   }
   return {idZone: 0, name: "Out Of Range"}

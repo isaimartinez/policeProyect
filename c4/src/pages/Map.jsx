@@ -14,12 +14,12 @@ const Map = () => {
   // const [polygons, setPolygons] = useState([])
   const [tempPolygon, setTempPolygon] = useState(null)
 
-  const {zones, tempZone} = state.data
+  const {zones, tempZone, incidencias} = state.data
   const {drawingZone, showZones, showTraffic} = state.view
 
-  const Marker = () => <div>
+  const Marker = ({color}) => <div>
     <FaMapMarker
-      color="red"
+      color={color}
       size={30} 
     />
   </div>;
@@ -106,10 +106,14 @@ const Map = () => {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
         >
-          <Marker
-            lat={center.lat}
-            lng={center.lng}
-          />
+          {incidencias.map((item, i) => (
+            <Marker
+              lat={item.latitude}
+              lng={item.longitude}
+              color={item.color}
+              key={i}
+            />
+          ))}
         </GoogleMapReact>
       </div>
     </div>

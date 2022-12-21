@@ -6,8 +6,6 @@ export const signin = async (req, res) => {
   try {
     const existingUser = await UserModel.findOne({id});
 
-    console.log("Exist", existingUser)
-
     if(!existingUser) return res.status(404).json({message: 'Invalid Credendials'})
 
     const isKeyCorrect = key == existingUser.key
