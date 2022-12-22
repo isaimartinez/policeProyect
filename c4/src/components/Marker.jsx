@@ -8,7 +8,7 @@ const Marker = ({color, id}) => {
   return (
   <div>
     <FaMapMarker
-      className={`${id == incidenciaActive ? 'animate-pulse' : null}`}
+      className={`${id == incidenciaActive ? 'animate-bounce' : null}`}
       color={color}
       size={id == incidenciaActive ? 38:30} 
     />
