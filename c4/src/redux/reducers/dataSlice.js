@@ -17,7 +17,7 @@ export const saveZone = createAsyncThunk(
   async (zone) => {
     const {data} = await postNewZone(zone)
     toast.success('Zona Guardada Exitosamente', {
-      position: "top-right",
+      position: "top-center",
       autoClose: 2500,
       hideProgressBar: false,
       closeOnClick: true,

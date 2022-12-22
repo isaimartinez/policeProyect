@@ -7,4 +7,5 @@ export {default as IncidenciasBar} from './IncidenciasBar'
 export {default as ModalIncidencia} from './ModalIncidencia'
 export {default as HeaderModal} from './HeaderModal'
 export {default as ItemIncidencia} from './ItemIncidencia'
+export {default as Marker} from './Marker'
 

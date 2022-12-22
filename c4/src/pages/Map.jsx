@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react'
 import {FaMapMarker} from 'react-icons/fa'
 import GoogleMapReact from 'google-map-react';
 import { center, mapOptions } from '../data/data';
-import { Navbar, Sidebar, IncidenciasBar, ModalIncidencia } from '../components';
+import { Navbar, Sidebar, IncidenciasBar, Marker } from '../components';
 import { useSelector, useDispatch } from 'react-redux'
 import {setTempZone} from '../redux/reducers/dataSlice'
 
@@ -12,15 +12,8 @@ const Map = () => {
   const state = useSelector((state) => state)
   const [mapApi, setMapApi] = useState(null)
   const [tempPolygon, setTempPolygon] = useState(null)
-  const {zones, tempZone, incidencias, incidenciaActive} = state.data
+  const {zones, tempZone, incidencias} = state.data
   const {drawingZone, showZones, showTraffic} = state.view
-
-  const Marker = ({color, id}) => <div>
-    <FaMapMarker
-      color={color}
-      size={id == incidenciaActive ? 38:30} 
-    />
-  </div>;
 
   useEffect(() => {
     if(mapApi){
