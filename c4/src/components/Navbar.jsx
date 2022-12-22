@@ -51,7 +51,7 @@ const NavBar = () => {
         />
 
       </div>
-      <NavButton color={"black"} icon={<FaCog/>}/>
+      {/* <NavButton color={"black"} icon={<FaCog/>}/> */}
     </div>
   )
 }

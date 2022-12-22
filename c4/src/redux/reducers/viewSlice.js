@@ -4,7 +4,8 @@ const initialState = {
   activeMenu: false,
   drawingZone: false,
   showZones: false,
-  showTraffic: false
+  showTraffic: false,
+  isModalIncidencia: false,
 }
 
 export const viewSlice = createSlice({
@@ -22,10 +23,13 @@ export const viewSlice = createSlice({
       },
       setShowTraffic: (state, action) => {
         state.showTraffic = action.payload
+      },
+      setIsModalIncidencia: (state, action) => {
+        state.isModalIncidencia = action.payload
       }
     },
 })
   
-export const { setActiveMenu, setDrawingZone, setShowZones, setShowTraffic } = viewSlice.actions
+export const { setActiveMenu, setDrawingZone, setShowZones, setShowTraffic, setIsModalIncidencia } = viewSlice.actions
 
 export default viewSlice.reducer

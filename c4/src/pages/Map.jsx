@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react'
 import {FaMapMarker} from 'react-icons/fa'
 import GoogleMapReact from 'google-map-react';
 import { center, mapOptions } from '../data/data';
-import { Navbar, Sidebar } from '../components';
+import { Navbar, Sidebar, IncidenciasBar, ModalIncidencia } from '../components';
 import { useSelector, useDispatch } from 'react-redux'
 import {setTempZone} from '../redux/reducers/dataSlice'
 
@@ -11,16 +11,14 @@ const Map = () => {
   const dispatch = useDispatch()
   const state = useSelector((state) => state)
   const [mapApi, setMapApi] = useState(null)
-  // const [polygons, setPolygons] = useState([])
   const [tempPolygon, setTempPolygon] = useState(null)
-
-  const {zones, tempZone, incidencias} = state.data
+  const {zones, tempZone, incidencias, incidenciaActive} = state.data
   const {drawingZone, showZones, showTraffic} = state.view
 
-  const Marker = ({color}) => <div>
+  const Marker = ({color, id}) => <div>
     <FaMapMarker
       color={color}
-      size={30} 
+      size={id == incidenciaActive ? 38:30} 
     />
   </div>;
 
@@ -46,7 +44,6 @@ const Map = () => {
         let element = polygons[i];
         element.setMap(null)
       }
-      // setPolygons([])
       polygons = []
     } else {
       for (let i = 0; i < zones.length; i++) {
@@ -59,7 +56,6 @@ const Map = () => {
           fillOpacity: 0.35
         })
         element.setMap(map);
-        // setPolygons([...polygons, element])
         polygons.push(element)
       }
     }
@@ -95,6 +91,7 @@ const Map = () => {
     <div className='flex relative'>
       <Sidebar />
       <Navbar />
+      <IncidenciasBar />
       <div className='flex z-0' style={{width: "100%", height: "100vh"}}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyAvvbvEGUO3njX8QjqaAnV-O9Xa2yubM10" }}
@@ -111,6 +108,7 @@ const Map = () => {
               lat={item.latitude}
               lng={item.longitude}
               color={item.color}
+              id={item.id}
               key={i}
             />
           ))}

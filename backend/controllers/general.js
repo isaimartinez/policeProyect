@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import {getAddress, getZone} from '../APIs/index.js'
 import IncidenciaMessage from '../models/incidenciaMessage.js'
 import ZoneModel from '../models/zonas.js'
+import sub from 'date-fns/sub/index.js'
 
 
 // let data = [{
@@ -25,6 +26,14 @@ export const createIncidencia = async (req, res) => {
     res.status(501).json({ message: error.message });
     console.log(error.message)
   }
+}
+
+export const updateIncidencia = async (req, res) => {
+  const {id: _id} = req.params
+  const incidencia = req.body
+  if(!mongoose.Types.ObjectId.isValid(_id)) {return res.status(484).send('No id')}
+  const updated = await IncidenciaMessage.findByIdAndUpdate(_id, incidencia, {new: true})
+  res.json(updated);
 }
 
 export const createZone = async (req, res) => {
@@ -51,7 +60,13 @@ export const getZones = async (req, res) => {
 
 export const getData = async (req, res) => {
   try {
-    const data = await IncidenciaMessage.find()
+    const data = await IncidenciaMessage.find({
+      createdAt: {
+        $gte: sub(new Date(), {hours: 2}),
+        $lte: new Date()
+      },
+      status: "0"
+    })
     res.status(201).json({ data });
   } catch (error) {
     res.status(404).json({ message: error.message });

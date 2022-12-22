@@ -20,6 +20,7 @@ const incidenciaSchema = mongoose.Schema({
     type: Date,
     default: new Date()
   },
+  resolvedAt: Date
 });
 
 const IncidenciaMessage = mongoose.model('IncidenciaMessage', incidenciaSchema);

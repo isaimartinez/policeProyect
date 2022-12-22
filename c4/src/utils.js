@@ -17,3 +17,21 @@ export function getStyles(name, personName, theme) {
         : theme.typography.fontWeightMedium,
   };
 }
+
+export const modalStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    width: '60%',
+    height: '90%',
+    padding: 0,
+    backgroundColor: "#fafbfb",
+    zIndex: 20
+  },
+  overlay: {
+    backgroundColor: 'rgba(250, 250, 249, 0.3)',
+    zIndex: 20
+  }
+};
