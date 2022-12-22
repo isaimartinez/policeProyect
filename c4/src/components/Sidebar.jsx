@@ -1,46 +1,17 @@
 import React from 'react'
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import TextField from '@mui/material/TextField';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-
 import {FaSignOutAlt} from 'react-icons/fa'
-
 import { useSelector, useDispatch } from 'react-redux'
 import {logout} from '../redux/reducers/authSlice'
 
-import { MenuProps, getStyles } from '../utils'
-import {setDate, setSelectedZones} from '../redux/reducers/dataSlice'
-import {setShowZones, setShowTraffic} from '../redux/reducers/viewSlice'
-import {NewZone} from './'
+import {NewZone, Filters} from './'
 
 const Sidebar = () => {
   const state = useSelector((state) => state)
   const dispatch = useDispatch()
-  const theme = useTheme();
 
-  const {activeMenu, showZones, showTraffic } = state.view
-  const {date, selectedZones, zones} = state.data
+  const {activeMenu} = state.view
+  const {} = state.data
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    dispatch(setSelectedZones(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    ));
-  };
 
   const handleLogout = () => {
     dispatch(logout())
@@ -53,7 +24,8 @@ const Sidebar = () => {
         activeMenu && ( <>
           <div className='flex flex-col w-72 justify-between mt-20 mb-10'>
             <div className='flex flex-col items-center'>
-              <LocalizationProvider  dateAdapter={AdapterDayjs}>
+                <Filters />
+              {/* <LocalizationProvider  dateAdapter={AdapterDayjs}>
                 <DesktopDatePicker
                   className='bg-white flex w-[250px] '
                   style={{width: 250}}
@@ -95,7 +67,7 @@ const Sidebar = () => {
               <FormControl className='bg-white' sx={{ m: 1, width: 250 }}>
                 <FormControlLabel className='bg-white mx-1' control={<Checkbox checked={showZones} onChange	={(e) => {dispatch(setShowZones(!showZones))}} />} label="Mostrar Zonas" />
                 <FormControlLabel className='bg-white' control={<Checkbox checked={showTraffic} onChange	={(e) => {dispatch(setShowTraffic(!showTraffic))}} />} label="Mostrar Tráfico" />
-              </FormControl>
+              </FormControl> */}
               <NewZone />
             </div>
             <div className='flex flex-row justify-center items-center cursor-pointer gap-2 hover:bg-slate-100 rounded m-2 p-1'

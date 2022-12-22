@@ -49,10 +49,16 @@ export const viewSlice = createSlice({
         state.date = action.payload
       },
       setSelectedZones: (state, action) => {
+        console.log("selected", action.payload)
         state.selectedZones = action.payload
       },
       setZones: (state, action) => {
         state.zones = action.payload
+        state.selectedZones = []
+        for (let i = 0; i < action.payload.length; i++) {
+          const z = action.payload[i];
+          state.selectedZones.push(z.name)
+        }
       },
       setTempZone: (state, action) => {
         state.tempZone = action.payload

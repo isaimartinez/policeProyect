@@ -1,6 +1,6 @@
 import {store} from '../redux/store'
 import {auth} from '../redux/reducers/authSlice'
-import {setIncidencias, setZones} from '../redux/reducers/dataSlice'
+import {setIncidencias, setZones, setSelectedZones} from '../redux/reducers/dataSlice'
 import {fetchData, fetchZones} from './'
 
 export async function onLoad()  {
@@ -13,4 +13,5 @@ export async function onLoad()  {
   console.log("zones", zones.data)
   store.dispatch(setIncidencias(data.data))
   store.dispatch(setZones(zones.data))
+  // store.dispatch(setSelectedZones(zones.data))
 }

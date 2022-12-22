@@ -32,7 +32,7 @@ const ItemIncidencia = ({item}) => {
   }
 
   return (
-    <div className='flex flex-col shadow-lg hover:shadow-xl p-2 bg-white hover:bg-slate-100 rounded cursor-pointer'
+    <div className='flex flex-col shadow-lg hover:shadow-xl p-2 bg-white opacity-60 hover:opacity-100 rounded cursor-pointer'
       onClick={() => handleClickItem(item.id)}
       key={item.id}
       onMouseEnter={() => {onMouseEnter()}}
