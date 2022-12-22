@@ -23,7 +23,7 @@ const Sidebar = () => {
       {
         activeMenu && ( <>
           <div className='flex flex-col w-72 justify-between mt-20 mb-10'>
-            <div className='flex flex-col items-center'>
+            <div className='flex flex-col'>
               <Filters />
               <NewZone />
             </div>

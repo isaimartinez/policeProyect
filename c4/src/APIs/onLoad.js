@@ -10,7 +10,6 @@ export async function onLoad()  {
   }
   let {data} = await fetchData()
   let zones = await fetchZones()
-  console.log("zones", zones.data)
   store.dispatch(setIncidencias(data.data))
   store.dispatch(setZones(zones.data))
   // store.dispatch(setSelectedZones(zones.data))

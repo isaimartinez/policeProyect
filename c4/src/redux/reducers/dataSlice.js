@@ -26,7 +26,6 @@ export const saveZone = createAsyncThunk(
       progress: undefined,
       theme: "light",
     });
-    console.log("saved")
     return data
   }
 
@@ -49,7 +48,6 @@ export const viewSlice = createSlice({
         state.date = action.payload
       },
       setSelectedZones: (state, action) => {
-        console.log("selected", action.payload)
         state.selectedZones = action.payload
       },
       setZones: (state, action) => {
@@ -57,7 +55,8 @@ export const viewSlice = createSlice({
         state.selectedZones = []
         for (let i = 0; i < action.payload.length; i++) {
           const z = action.payload[i];
-          state.selectedZones.push(z.name)
+          const {name} = z
+          state.selectedZones.push(name)
         }
       },
       setTempZone: (state, action) => {
