@@ -25,6 +25,5 @@ export function filterIncidencias(incidencias, selectedZones) {
     }
     
   }
-  console.log(obj)
   store.dispatch(setFilteredIncidencias(obj))
 }
