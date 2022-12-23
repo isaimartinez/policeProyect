@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 const initialState = {
   incidencias: [],
+  filteredIncidencias: [],
   incidenciaActive: "",
   date: dayjs(),
   selectedZones: [],
@@ -37,6 +38,9 @@ export const viewSlice = createSlice({
     reducers: {
       setIncidencias: (state, action) => {
         state.incidencias = action.payload
+      },
+      setFilteredIncidencias: (state, action) => {
+        state.filteredIncidencias = action.payload
       },
       removeIncidencia: (state, action) => {
         state.incidencias.splice(state.incidencias.findIndex(function(i){
@@ -73,6 +77,6 @@ export const viewSlice = createSlice({
     },
 })
   
-export const { setIncidencias, removeIncidencia, setDate, setSelectedZones, setZones, setTempZone, setIncidenciaActive} = viewSlice.actions
+export const { setIncidencias, removeIncidencia, setDate, setSelectedZones, setZones, setTempZone, setIncidenciaActive, setFilteredIncidencias} = viewSlice.actions
 
 export default viewSlice.reducer

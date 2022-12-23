@@ -12,7 +12,7 @@ const Map = () => {
   const state = useSelector((state) => state)
   const [mapApi, setMapApi] = useState(null)
   const [tempPolygon, setTempPolygon] = useState(null)
-  const {zones, tempZone, incidencias} = state.data
+  const {zones, tempZone, incidencias, filteredIncidencias} = state.data
   const {drawingZone, showZones, showTraffic} = state.view
 
   useEffect(() => {
@@ -96,7 +96,7 @@ const Map = () => {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
         >
-          {incidencias.map((item, i) => (
+          {filteredIncidencias.map((item, i) => (
             <Marker
               lat={item.latitude}
               lng={item.longitude}

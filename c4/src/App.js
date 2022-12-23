@@ -5,11 +5,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RequireAuth, Layout} from './components'
 import {Map, Login} from './pages/'
 import {setIncidencias, setZones} from './redux/reducers/dataSlice'
-import {onLoad} from './APIs/onLoad'
+import {onLoad, filterIncidencias} from './APIs/helpers'
 
 function App()  {
   const state = useSelector((state) => state)
-  const {incidencias} = state.data
+  const {incidencias, selectedZones} = state.data
   const {authData} = state.auth
   const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8085');
   const dispatch = useDispatch()
@@ -35,6 +35,11 @@ function App()  {
       dispatch(setIncidencias([...incidencias, obj]))
     }
   }, [lastMessage, setIncidencias]);
+
+  useEffect(() => {
+    filterIncidencias([...incidencias],[...selectedZones])
+  }, [selectedZones])
+  
 
   const connectionStatus = {
     [ReadyState.CONNECTING]: 'Connecting',
