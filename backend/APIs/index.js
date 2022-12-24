@@ -14,6 +14,6 @@ export const getZone = async (lat, lng) => {
       return { idZone: z.idZone, zoneName: z.name, color: z.color}
     }
   }
-  return {idZone: 0, name: "Out Of Range"}
+  return {idZone: "0", zoneName: "Out Of Range"}
 }
 

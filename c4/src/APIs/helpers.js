@@ -16,13 +16,18 @@ export async function onLoad()  {
 }
 
 export function filterIncidencias(incidencias, selectedZones) {
+  console.log("filtrando")
   let obj = []
   for (let i = 0; i < incidencias.length; i++) {
     const item = incidencias[i];
     for (let j = 0; j < selectedZones.length; j++) {
       const z = selectedZones[j];
-      if(item.zoneName == z){obj.push(item)}
+      if(item.zoneName == z){
+        console.log("breaking")
+        obj.push(item);
+      }
     }
+    if(item.zoneName == "Out Of Range") {obj.push(item)}
     
   }
   store.dispatch(setFilteredIncidencias(obj))

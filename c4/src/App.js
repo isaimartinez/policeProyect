@@ -30,7 +30,7 @@ function App()  {
 
   useEffect(() => {
     if (lastMessage !== null) {
-      console.log("lastMessage",lastMessage)
+      console.log("lastMessage",lastMessage.data)
       let obj = JSON.parse(lastMessage.data)
       dispatch(setIncidencias([...incidencias, obj]))
     }
@@ -38,7 +38,7 @@ function App()  {
 
   useEffect(() => {
     filterIncidencias([...incidencias],[...selectedZones])
-  }, [selectedZones])
+  }, [selectedZones, incidencias])
   
 
   const connectionStatus = {
