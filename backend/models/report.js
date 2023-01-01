@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const incidenciaSchema = mongoose.Schema({
+const reportSchema = mongoose.Schema({
   altitude: Number,
   altitudeAccuracy: Number,
   latitude: Number,
@@ -16,6 +16,8 @@ const incidenciaSchema = mongoose.Schema({
   idZone: String,
   color: String,
   status: String,
+  comment: String,
+  fileAt: String,
   createdAt: {
     type: Date,
     default: new Date()
@@ -23,6 +25,6 @@ const incidenciaSchema = mongoose.Schema({
   resolvedAt: Date
 });
 
-const IncidenciaMessage = mongoose.model('IncidenciaMessage', incidenciaSchema);
+const Report = mongoose.model('Report', reportSchema);
 
-export default IncidenciaMessage;
+export default Report;

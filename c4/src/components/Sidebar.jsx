@@ -25,7 +25,9 @@ const Sidebar = () => {
           <div className='flex flex-col w-72 justify-between mt-20 mb-10'>
             <div className='flex flex-col'>
               <Filters />
-              <NewZone />
+              <div className='flex justify-center'>
+                <NewZone />
+              </div>
             </div>
             <div className='flex flex-row justify-center items-center cursor-pointer gap-2 hover:bg-slate-100 rounded m-2 p-1'
               onClick={handleLogout}

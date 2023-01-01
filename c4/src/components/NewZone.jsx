@@ -46,12 +46,12 @@ const NewZone = () => {
   )
 
   return (
-    <FormControl className='flex flex-col gap-2 items-center' sx={{ m: 1, width: 250 }}>
-      <TextField id="filled-basic" label="Nombre" variant="filled" value={tempZone.name} 
+    <FormControl className='flex flex-col gap-2 items-center justify-center' sx={{ m: 1, width: 250 }}>
+      <TextField id="filled-basic" label="Nombre" variant="filled" value={tempZone.name} className="w-full"
         onChange={e => dispatch(setTempZone({...tempZone, name: e.target.value}))}
         error={tempZone.name.length == 0}
       />
-      <div className='flex flex-col gap-2'>
+      <div className='flex flex-col gap-2 w-full'>
         <p>Selecciona un Color</p>
         <SliderPicker color={tempZone.color} onChangeComplete={(color) => {dispatch(setTempZone({...tempZone, color: color.hex}))}} />
       </div>

@@ -4,7 +4,7 @@ import { center, mapOptions } from '../data/data';
 import {postIncidencia} from '../APIs/index'
 import {genId} from '../utils'
 
-const Map = () => {
+const Map = ({isModalOpen,setIsModalOpen, setId}) => {
 
   const preSaved = {
     altitude: 1,
@@ -19,7 +19,10 @@ const Map = () => {
   }
 
   const handleMapOnClick = async ({x, y, lat, lng, event}) => {
-    let data = {...preSaved, latitude: lat, longitude: lng, id: genId()}
+    let id = genId()
+    setId(id)
+    setIsModalOpen(true)
+    let data = {...preSaved, latitude: lat, longitude: lng, id}
     console.log(data)
     await postIncidencia(data)
   }
