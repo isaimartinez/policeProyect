@@ -21,6 +21,7 @@ const customStyles = {
 const ModalComponent = ({ isModalOpen, setIsModalOpen, id }) => {
   const [file, setFile] = useState(null)
   const [comment, setComment] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const closeModal = () => {
     setFile(null)
@@ -30,6 +31,7 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, id }) => {
 
   const handleSubmit = async () => {
     console.log("comment", comment)
+    setLoading(true)
     if(comment.length > 0){
       await postComment(comment, id)
     }
@@ -38,6 +40,7 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, id }) => {
       formData.append("file", file);
       await postFile(formData, id)
     }
+    setLoading(false)
     setIsModalOpen(false)
     setFile(null)
     setComment("")
@@ -50,26 +53,34 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, id }) => {
         style={customStyles}
         ariaHideApp={false}
         contentLabel="Example Modal"
-      >
-        <div className='flex flex-col h-full w-full bg-red-200 p-2'>
-          <div className='flex basis-1/4 justify-around items-center'>
-            <p className='text-lg font-semibold'>Select A file Or Write a Comment</p>
-            <p className='cursor-pointer' onClick={closeModal}>X</p>
-          </div>
-          <div className='flex flex-col gap-5 basis-2/4'>
-            <div className='flex'>
-              <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+      > 
+        {
+          loading ? (
+            <div className='flex flex-col h-full w-full items-center justify-center p-2'>
+              <p>Loading...</p>
             </div>
-            <div className='flex flex-col'>
-              <p>Comment:</p>
-              <input type="text" value={comment} onChange={(e) => setComment(e.target.value)} />
+          ) : (
+            <div className='flex flex-col h-full w-full bg-red-200 p-2'>
+              <div className='flex basis-1/4 justify-around items-center'>
+                <p className='text-lg font-semibold'>Select A file Or Write a Comment</p>
+                <p className='cursor-pointer' onClick={closeModal}>X</p>
+              </div>
+              <div className='flex flex-col gap-5 basis-2/4'>
+                <div className='flex'>
+                  <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+                </div>
+                <div className='flex flex-col'>
+                  <p>Comment:</p>
+                  <input type="text" value={comment} onChange={(e) => setComment(e.target.value)} />
+                </div>
+              </div>
+              <div className='flex basis-1/4 items-center justify-center gap-5'>
+                <button className='flex' type='button' onClick={closeModal}>Cancel</button>
+                <button className='flex' type='button' onClick={handleSubmit}>Submit</button>
+              </div>
             </div>
-          </div>
-          <div className='flex basis-1/4 items-center justify-center gap-5'>
-            <button className='flex' type='button' onClick={closeModal}>Cancel</button>
-            <button className='flex' type='button' onClick={handleSubmit}>Submit</button>
-          </div>
-        </div>
+          )
+        }
       </Modal>
   )
 }

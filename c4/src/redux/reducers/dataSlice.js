@@ -47,7 +47,6 @@ export const viewSlice = createSlice({
             return i.id === action.payload;
         }), 1);
       },
-
       setDate: (state, action) => {
         state.date = action.payload
       },

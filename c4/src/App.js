@@ -6,12 +6,22 @@ import { RequireAuth, Layout} from './components'
 import {Map, Login} from './pages/'
 import {setIncidencias, setZones} from './redux/reducers/dataSlice'
 import {onLoad, filterIncidencias} from './APIs/helpers'
+import { socket } from './APIs/socket';
 
 function App()  {
   const state = useSelector((state) => state)
   const {incidencias, selectedZones} = state.data
   const {authData} = state.auth
   const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8085');
+
+  const connectionStatus = {
+    [ReadyState.CONNECTING]: 'Connecting',
+    [ReadyState.OPEN]: 'Open',
+    [ReadyState.CLOSING]: 'Closing',
+    [ReadyState.CLOSED]: 'Closed',
+    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+  }[readyState];
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -30,24 +40,15 @@ function App()  {
 
   useEffect(() => {
     if (lastMessage !== null) {
-      console.log("lastMessage",lastMessage.data)
-      let obj = JSON.parse(lastMessage.data)
-      dispatch(setIncidencias([...incidencias, obj]))
+      let data = JSON.parse(lastMessage.data)
+      console.log("lastMessage", data)
+      socket(data)
     }
-  }, [lastMessage, setIncidencias]);
+  }, [lastMessage]);
 
   useEffect(() => {
     filterIncidencias([...incidencias],[...selectedZones])
   }, [selectedZones, incidencias])
-  
-
-  const connectionStatus = {
-    [ReadyState.CONNECTING]: 'Connecting',
-    [ReadyState.OPEN]: 'Open',
-    [ReadyState.CLOSING]: 'Closing',
-    [ReadyState.CLOSED]: 'Closed',
-    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-  }[readyState];
 
   return (
     <div>

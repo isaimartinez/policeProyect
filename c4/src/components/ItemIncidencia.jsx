@@ -4,6 +4,18 @@ import {setIncidenciaActive} from '../redux/reducers/dataSlice'
 import Button from '@mui/material/Button';
 import {updateIncidencia} from '../APIs/'
 import {removeIncidencia} from '../redux/reducers/dataSlice'
+import {FaComment} from 'react-icons/fa'
+import { getFileIcon } from '../APIs/helpers';
+import {RenderFileReport} from './'
+
+const Icons = ({url, comment}) => {
+  return (
+    <div className='flex flex-row absolute gap-1 right-2 top-1'>
+      {comment && <FaComment color='#94A3B8' className='' />}
+      {url && getFileIcon(url)}
+    </div>
+  )
+}
 
 const ItemIncidencia = ({item}) => {
   const state = useSelector((state) => state)
@@ -13,7 +25,6 @@ const ItemIncidencia = ({item}) => {
   const [isActive, setIsActive] = useState(false)
 
   const handleClickItem = (id) => {
-    // dispatch(setIncidenciaActive(id))
     setIsActive(!isActive)
   }
 
@@ -32,19 +43,25 @@ const ItemIncidencia = ({item}) => {
   }
 
   return (
-    <div className='flex flex-col shadow-lg hover:shadow-xl p-2 bg-white opacity-60 hover:opacity-100 rounded cursor-pointer'
+    <div className='flex relative flex-col shadow-lg hover:shadow-xl max-w-md p-2 bg-white opacity-60 hover:opacity-100 rounded cursor-pointer'
       onClick={() => handleClickItem(item.id)}
       key={item.id}
       onMouseEnter={() => {onMouseEnter()}}
       onMouseLeave={() => {onMouseLeave()}}
     >
+      <Icons url={item?.url} comment={item?.comment}/>
       <p>Nombre: <span>{item.name}</span></p>
       <p>Número: <span>{item.phoneNumber}</span></p>
       <p>Dirección: <span>{item.address}</span></p>
       {
         isActive && (
           <>
-            {/* <p>Coordenadas: <span>{item.latitude},{item.longitude}</span></p> */}
+            {item?.url && (
+              <>
+                <RenderFileReport url={item?.url}/>
+              </>
+              )}
+            {item?.comment && (<p>Detalles: <span>{item?.comment}</span></p>)}
             <div className='flex mt-1 flex-col items-center justify-center'>
               <Button variant="outlined" size='large'
                 onClick={onResolve}

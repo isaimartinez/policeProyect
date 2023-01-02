@@ -9,4 +9,6 @@ export {default as HeaderModal} from './HeaderModal'
 export {default as ItemIncidencia} from './ItemIncidencia'
 export {default as Marker} from './Marker'
 export {default as Filters} from './Filters'
+export {default as RenderFileReport} from './RenderFileReport'
+
 

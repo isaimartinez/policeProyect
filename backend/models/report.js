@@ -17,7 +17,7 @@ const reportSchema = mongoose.Schema({
   color: String,
   status: String,
   comment: String,
-  fileAt: String,
+  url: String,
   createdAt: {
     type: Date,
     default: new Date()

@@ -2,6 +2,7 @@ import {store} from '../redux/store'
 import {auth} from '../redux/reducers/authSlice'
 import {setIncidencias, setZones, setFilteredIncidencias} from '../redux/reducers/dataSlice'
 import {fetchData, fetchZones} from '.'
+import {FaImage, FaVideo, FaPlay} from 'react-icons/fa'
 
 export async function onLoad()  {
   let user = JSON.parse(localStorage.getItem('profile'))
@@ -26,7 +27,33 @@ export function filterIncidencias(incidencias, selectedZones) {
       }
     }
     if(item.zoneName == "Out Of Range") {obj.push(item)}
-    
   }
   store.dispatch(setFilteredIncidencias(obj))
+}
+
+export const getKindOfFile = (url) => {
+  const ext = url?.split('.').pop().toLowerCase()
+  let kindOfFile
+  if(ext == "png" || ext == "jpeg" || ext == "jpg"){
+    kindOfFile = "pic"
+  } else if(ext == "mp4" || ext == "mov"){
+    kindOfFile = "video"
+  } else if(ext == "mp3" || ext == "ogg"){
+    kindOfFile = "audio"
+  }
+  return kindOfFile
+}
+
+export const getFileIcon = (url) => {
+  const kindOfFile = getKindOfFile(url)
+  switch (kindOfFile) {
+    case "pic":
+      return <FaImage color='#94A3B8'/>
+    case "video":
+      return <FaVideo color='#94A3B8'/>
+    case "audio":
+      return <FaPlay color='#94A3B8'/>
+    default:
+      break;
+  }
 }

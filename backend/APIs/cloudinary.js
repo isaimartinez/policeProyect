@@ -11,8 +11,6 @@ export const cloudConfig = () => {
 
 export const uploadFile = async (path) => {
   try {
-    console.log("key", process.env.CLOUD_KEY)
-    console.log("path", path)
     return await cloudinary.uploader.upload(path, {
       folder: 'files'
     })
