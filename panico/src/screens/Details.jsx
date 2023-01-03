@@ -1,13 +1,13 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState} from 'react'
 import { View, Text, TouchableOpacity, Platform, ActivityIndicator } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import {Button} from '../components'
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {SH, SW} from '../Apis/Dimensions'
-import {RenderFile} from '../components'
 import {postFile} from '../Apis/axios'
 import {cameraImageOptions, cameraVideoOptions, libraryOptions} from '../Apis/utils'
+import {styles} from '../styles/'
 
 const Details = ({route}) => {
   const {user} = useSelector((state) => state.main)
@@ -15,7 +15,7 @@ const Details = ({route}) => {
   const { id} = route.params;
   const [file, setFile] = useState(null)
   const [subiendo, setSubiendo] = useState(false)
-  const [selectedBtn, setSelectedBtn] = useState("")
+  const [selectedBtn, setSelectedBtn] = useState("cameraImage")
 
   const handleEnviar = async () => {
     setSubiendo(true)
@@ -36,7 +36,7 @@ const Details = ({route}) => {
       const result = await launchCamera(cameraImageOptions);
       if(result?.didCancel)return false
       setFile(result.assets[0])
-      setFile("cameraImage")
+      setSelectedBtn("cameraImage")
     } catch (error) {
       console.log("error", error)
     }
@@ -47,7 +47,7 @@ const Details = ({route}) => {
       const result = await launchCamera(cameraVideoOptions);
       if(result?.didCancel)return false
       setFile(result?.assets[0])
-      setFile("cameraVideo")
+      setSelectedBtn("cameraVideo")
     } catch (error) {
       console.log("error", error)
     }
@@ -58,10 +58,14 @@ const Details = ({route}) => {
       const result = await launchImageLibrary(libraryOptions);
       if(result?.didCancel)return false
       setFile(result.assets[0])
-      setFile("library")
+      setSelectedBtn("library")
     } catch (error) {
       console.log("error", error)
     }
+  }
+
+  const isFileBtnSelected = (btn) => {
+    return btn == selectedBtn ? {backgroundColor: "#93c5fd"} : {backgroundColor: "#e2e8f0"}
   }
 
   if(subiendo) {
@@ -80,13 +84,13 @@ const Details = ({route}) => {
       <View style={{flex: 2, flexDirection: 'column',}}>
         <View style={{flex: 4, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center',}}>
           <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-            <TouchableOpacity style={{flex: 1, margin: 10,width: SH/5, height: SH/5,  borderRadius: 5, borderColor: "#64748b", borderWidth: 1, backgroundColor: "#e2e8f0", justifyContent: 'center', alignItems: 'center'}}
+            <TouchableOpacity style={[styles.fileBtn, isFileBtnSelected("cameraImage")]}
               onPress={onLaunchCameraImage}
             >
               <Icon name="camera" size={30} color="#64748b"/>
               <Text style={{color: "#64748b"}}>Cámara</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{flex: 1, margin: 10,width: SH/5, height: SH/5,  borderRadius: 5, borderColor: "#64748b", borderWidth: 1, backgroundColor: "#e2e8f0", justifyContent: 'center', alignItems: 'center'}}
+            <TouchableOpacity style={[styles.fileBtn, isFileBtnSelected("cameraVideo")]}
               onPress={onLaunchCameraVideo}
             >
               <Icon name="video" size={30} color="#64748b"/>
@@ -94,13 +98,13 @@ const Details = ({route}) => {
             </TouchableOpacity>
           </View>
           <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-            <TouchableOpacity style={{flex: 1, margin: 10,width: SH/5, height: SH/5,  borderRadius: 5, borderColor: "#64748b", borderWidth: 1, backgroundColor: "#e2e8f0", justifyContent: 'center', alignItems: 'center'}}
+            <TouchableOpacity style={[styles.fileBtn, isFileBtnSelected("library")]}
               onPress={onLaunchLibrary}
             >
               <Icon name="images" size={30} color="#64748b"/>
               <Text style={{color: "#64748b"}}>Galería</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{flex: 1, margin: 10,width: SH/5, height: SH/5,  borderRadius: 5, borderColor: "#64748b", borderWidth: 1, backgroundColor: "#e2e8f0", justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity style={[styles.fileBtn, isFileBtnSelected("audio")]}>
               <Icon name="microphone" size={30} color="#64748b"/>
               <Text style={{color: "#64748b"}}>Audio</Text>
             </TouchableOpacity>
