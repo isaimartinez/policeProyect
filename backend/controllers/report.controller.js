@@ -7,6 +7,7 @@ import fs from 'fs-extra'
 
 export const createReport = async (req, res) => {
   const { incidencia} = req.body
+  console.log("entra", incidencia)
   try {
     let address = await getAddress(incidencia.latitude, incidencia.longitude)
     let zone = await getZone(incidencia.latitude, incidencia.longitude)
@@ -35,7 +36,7 @@ export const setReportFile = async (req, res) => {
     if(req.files?.file){
       // upload
       console.log("file", req.files.file)
-      const uploaded = await uploadFile(req.files.file.tempFilePath)
+      const uploaded = await uploadFile(req.files.file.tempFilePath, req.files.file.mimetype)
       console.log("uploaded", uploaded)
       const url = uploaded.secure_url
       const report = await ReportModel.findOne({id: id})

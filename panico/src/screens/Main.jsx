@@ -3,7 +3,8 @@ import { View, Text, TouchableOpacity, Alert, Image } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import nueveOnce from '../assets/911.png'
 import footer from '../assets/footer.jpeg'
-import { SOS } from '../Apis/SOS'
+import { generateReport } from '../Apis/Reports'
+import {getCoords} from '../Apis/Geolocation'
 
 let interval
 const Main = () => {
@@ -18,13 +19,13 @@ const Main = () => {
       clearInterval(interval)
       setIsVisible(false)
       setCounter(5)
-      console.log("user", user)
-      SOS(user)
+      generateReport(user)
     }
   }, [counter])
   
 
   const onPressIn = () => {
+    generateReport(user)
     setIsVisible(true)
     interval = setInterval(() => {
       setCounter(prev => prev-1)
@@ -55,7 +56,7 @@ const Main = () => {
           <Text style={{color: "white", fontSize: 40}}>{!isVisible ? "S O S" : counter}</Text>
         </TouchableOpacity>
         <View style={{marginTop: 5}}>
-          <Text style={{color: "#64748B"}}>Manten presionado el botón por 5 segundos para dar alerta</Text>
+          <Text style={{color: "#475569"}}>Manten presionado el botón por 5 segundos para dar alerta</Text>
         </View>
       </View>
       <View style={{flex: 0.5, justifyContent: 'flex-end', alignItems: 'center',}}>

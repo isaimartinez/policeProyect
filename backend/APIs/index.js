@@ -17,3 +17,14 @@ export const getZone = async (lat, lng) => {
   return {idZone: "0", zoneName: "Out Of Range"}
 }
 
+export const getKindOfFile = (mimetype) => {
+  let kindOfFile
+  if(mimetype.includes("video")){
+    kindOfFile = "video"
+  } else if(mimetype.includes("image")) {
+    kindOfFile = "image"
+  } else if(mimetype.includes("audio")) {
+    kindOfFile = "video"
+  }
+  return kindOfFile
+}

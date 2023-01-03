@@ -5,6 +5,7 @@ import {getData, storeData} from '../../Apis/storage'
 
 const initialState = {
   user: null,
+  coords: {}
 }
 
 export const fetchData = createAsyncThunk(
@@ -31,6 +32,9 @@ export const mainSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload
+    },
+    setCoords: (state, action) => {
+      state.coords = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -44,6 +48,6 @@ export const mainSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setUser } = mainSlice.actions
+export const { setUser, setCoords } = mainSlice.actions
 
 export default mainSlice.reducer

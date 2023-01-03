@@ -1,4 +1,5 @@
 import {v2 as cloudinary} from 'cloudinary'
+import { getKindOfFile } from './index.js';
 
 export const cloudConfig = () => {
   cloudinary.config({ 
@@ -9,10 +10,13 @@ export const cloudConfig = () => {
   });
 }
 
-export const uploadFile = async (path) => {
+export const uploadFile = async (path, mimetype) => {
   try {
+    const resource_type = getKindOfFile(mimetype)
+    console.log("resource_type", resource_type)
     return await cloudinary.uploader.upload(path, {
-      folder: 'files'
+      folder: 'files',
+      resource_type
     })
   } catch (error) {
     console.log("error", error)

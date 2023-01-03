@@ -36,6 +36,7 @@ const ModalComponent = ({ isModalOpen, setIsModalOpen, id }) => {
       await postComment(comment, id)
     }
     if(file){
+      console.log("file", file)
       let formData = new FormData()
       formData.append("file", file);
       await postFile(formData, id)

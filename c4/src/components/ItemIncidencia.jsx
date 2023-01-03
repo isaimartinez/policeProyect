@@ -43,7 +43,7 @@ const ItemIncidencia = ({item}) => {
   }
 
   return (
-    <div className='flex relative flex-col shadow-lg hover:shadow-xl max-w-md p-2 bg-white opacity-60 hover:opacity-100 rounded cursor-pointer'
+    <div className='flex relative flex-col shadow-lg hover:shadow-xl w-[500px] p-2 bg-white opacity-60 hover:opacity-100 rounded cursor-pointer'
       onClick={() => handleClickItem(item.id)}
       key={item.id}
       onMouseEnter={() => {onMouseEnter()}}
@@ -59,6 +59,7 @@ const ItemIncidencia = ({item}) => {
             {item?.url && (
               <>
                 <RenderFileReport url={item?.url}/>
+                <p>url: <span>{item?.url}</span></p>
               </>
               )}
             {item?.comment && (<p>Detalles: <span>{item?.comment}</span></p>)}
