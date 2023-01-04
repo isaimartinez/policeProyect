@@ -2,9 +2,10 @@ import { Alert, Vibration } from 'react-native';
 import { getCoords } from './Geolocation';
 import { genId, VIBRATION_PATTERN } from './utils';
 import { createReport } from './axios';
+import {store} from '../redux/store'
+import {setSendingReport} from '../redux/reducers/mainSlice'
 
 import * as RootNavigation from '../navigation/RootNavigation';
-
 
 export const generateReport = async (user) => {
   const coords = await getCoords()
@@ -16,6 +17,7 @@ export const generateReport = async (user) => {
       ...user,
       id
     }
+    store.dispatch(setSendingReport(true))
     const res = await createReport(newReport)
     console.log("res", res.data)
     Vibration.vibrate(VIBRATION_PATTERN)
@@ -26,8 +28,10 @@ export const generateReport = async (user) => {
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ]
     );
+    store.dispatch(setSendingReport(false))
     RootNavigation.navigate("Details",{id})
   } catch (error) {
+    store.dispatch(setSendingReport(false))
     console.log("error", error)
     Alert.alert(
       "Lo sentimos",

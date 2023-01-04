@@ -1,14 +1,13 @@
 import React,{useState, useEffect} from 'react'
-import { View, Text, TouchableOpacity, Alert, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import nueveOnce from '../assets/911.png'
 import footer from '../assets/footer.jpeg'
 import { generateReport } from '../Apis/Reports'
-import {getCoords} from '../Apis/Geolocation'
 
 let interval
 const Main = () => {
-  const {user} = useSelector((state) => state.main)
+  const {user, sendingReport} = useSelector((state) => state.main)
   const dispatch = useDispatch()
 
   const [counter, setCounter] = useState(5)
@@ -17,15 +16,15 @@ const Main = () => {
   useEffect(() => {
     if(counter == 0) {
       clearInterval(interval)
+      generateReport(user)
       setIsVisible(false)
       setCounter(5)
-      generateReport(user)
     }
   }, [counter])
   
 
   const onPressIn = () => {
-    generateReport(user)
+    // generateReport(user)
     setIsVisible(true)
     interval = setInterval(() => {
       setCounter(prev => prev-1)
@@ -53,7 +52,14 @@ const Main = () => {
           onPressIn={onPressIn}
           onPressOut={onPressOut}
         >
-          <Text style={{color: "white", fontSize: 40}}>{!isVisible ? "S O S" : counter}</Text>
+          {
+            !sendingReport ? (
+              <Text style={{color: "white", fontSize: 40}}>{!isVisible ? "S O S" : counter}</Text>
+            ) : (
+              <ActivityIndicator color={"white"}/>
+            )
+          }
+          
         </TouchableOpacity>
         <View style={{marginTop: 5}}>
           <Text style={{color: "#475569"}}>Manten presionado el botón por 5 segundos para dar alerta</Text>

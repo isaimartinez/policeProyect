@@ -5,6 +5,7 @@ import {getData, storeData} from '../../Apis/storage'
 
 const initialState = {
   user: null,
+  sendingReport: false,
   coords: {}
 }
 
@@ -33,8 +34,8 @@ export const mainSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload
     },
-    setCoords: (state, action) => {
-      state.coords = action.payload
+    setSendingReport: (state, action) => {
+      state.sendingReport = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -48,6 +49,6 @@ export const mainSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setUser, setCoords } = mainSlice.actions
+export const { setUser, setSendingReport } = mainSlice.actions
 
 export default mainSlice.reducer
