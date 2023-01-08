@@ -13,7 +13,8 @@ const Login = () => {
   
   
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault()
     dispatch(fetchLogin({id, key}))
     setTimeout(async () => {
       onLoad()
@@ -22,14 +23,12 @@ const Login = () => {
 
   return (
     <div className='flex w-full h-screen m-auto justify-center items-center'>
-      <div className='flex flex-col gap-5 w-96'>
+      <form className='flex flex-col gap-5 w-96' onSubmit={handleLogin}>
         <TextField id="filled-basic" label="Id" variant="filled" value={id} onChange={e => setId(e.target.value)}/>
         <TextField id="filled-basic" label="Password" variant="filled" value={key} onChange={e => setKey(e.target.value)}/>
 
-        <Button variant="outlined" size='large'
-          onClick={handleLogin}
-        >Iniciar Sesión</Button>
-      </div>
+        <Button type='submit' variant="outlined" size='large'>Iniciar Sesión</Button>
+      </form>
     </div>
   )
 }
