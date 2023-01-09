@@ -15,10 +15,14 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault()
-    dispatch(fetchLogin({id, key}))
-    setTimeout(async () => {
-      onLoad()
-    }, 2000);
+    try {
+      dispatch(fetchLogin({id, key}))
+      setTimeout(async () => {
+        onLoad()
+      }, 2000);
+    } catch (error) {
+      console.log("error", error)
+    }
   }
 
   return (

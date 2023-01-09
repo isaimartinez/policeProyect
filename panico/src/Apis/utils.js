@@ -5,12 +5,14 @@ export const genId = () => {
   return uuidv4()
 }
 
-export const ONE_SECOND_IN_MS = 1000;
+export const INTERVAL = 200;
 
 export const VIBRATION_PATTERN = [
-  1 * ONE_SECOND_IN_MS,
-  2 * ONE_SECOND_IN_MS,
-  3 * ONE_SECOND_IN_MS
+  1 * INTERVAL,
+  2 * INTERVAL,
+  3 * INTERVAL,
+  4 * INTERVAL,
+  5 * INTERVAL
 ];
 
 export const getKindOfFile = (url) => {

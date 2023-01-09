@@ -3,8 +3,11 @@ import React,{useState} from 'react'
 import {TextField, Button} from '../components'
 import { useSelector, useDispatch } from 'react-redux'
 import { saveData } from '../redux/reducers/mainSlice'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import logo from '../assets/estrella.jpg'
 import footer from '../assets/footer.jpeg'
+import {getHp} from '../Apis/Dimensions'
+
 const Login = () => {
   const dispatch = useDispatch()
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -22,7 +25,9 @@ const Login = () => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: "#F8FAFC"}}>
-      <View style={{flex:1, margin:15}}>
+    <KeyboardAwareScrollView style={{flex: 1}}>
+
+      <View style={{flex:1, margin:15, height:  getHp(0.9),}}>
         <View style={{flex: 0.7, alignItems: 'center'}}>
           <Image source={logo} style={{width: 135, height: 135, borderRadius: 10}}/>
         </View>
@@ -46,6 +51,7 @@ const Login = () => {
           />
         </View>
       </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   )
 }
