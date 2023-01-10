@@ -38,7 +38,7 @@ export const getKindOfFile = (url) => {
     kindOfFile = "pic"
   } else if(ext == "mp4" || ext == "mov"){
     kindOfFile = "video"
-  } else if(ext == "mp3" || ext == "ogg"){
+  } else if(ext == "mp3" || ext == "ogg" || ext == "m4a"){
     kindOfFile = "audio"
   }
   return kindOfFile

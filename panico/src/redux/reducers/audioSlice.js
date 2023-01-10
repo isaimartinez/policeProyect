@@ -7,6 +7,9 @@ const initialState = {
   currentDurationSec: null,
   playTime: null,
   duration: null,
+  isRecording: false,
+  isPlaying: false,
+  audio: null
 }
 
 export const audioSlice = createSlice({
@@ -22,15 +25,25 @@ export const audioSlice = createSlice({
     },
     setPlayingData: (state, action) => {
       const {currentPositionSec, currentDurationSec, playTime, duration} = action.payload
+      console.log(currentPositionSec, currentDurationSec, playTime, duration)
       state.currentPositionSec = currentPositionSec
       state.currentDurationSec = currentDurationSec
       state.playTime = playTime
       state.duration = duration
+    },
+    setIsRecording: (state, action) => {
+      state.isRecording = action.payload
+    },
+    setIsPlaying: (state, action) => {
+      state.isPlaying = action.payload
+    },
+    setAudio: (state, action) => {
+      state.audio = action.payload
     }
 
   }
 })
 
-export const { setRecordData, stopRecordData, setPlayingData } = audioSlice.actions
+export const { setRecordData, stopRecordData, setPlayingData, setIsRecording, setIsPlaying, setAudio } = audioSlice.actions
 
 export default audioSlice.reducer

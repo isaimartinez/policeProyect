@@ -77,6 +77,12 @@ const Details = ({route, navigation}) => {
     }
   }
 
+  const onStoreAudio = (audio) => {
+    setFile({uri:audio, type: "video/mp4",})
+    setSelectedBtn("audio")
+    actionSheetRef.current?.hide();
+  }
+
   const showAudioSheet = () => {
     actionSheetRef.current?.show();
 
@@ -96,7 +102,7 @@ const Details = ({route, navigation}) => {
 
   return (
     <KeyboardAwareScrollView style={{flex: 1}}>
-      <AudioSheet actionSheetRef={actionSheetRef}/>
+      <AudioSheet actionSheetRef={actionSheetRef} onStoreAudio={onStoreAudio}/>
       <View style={{ flex: 1, height: getHp(0.9),flexDirection: "column", backgroundColor: "#F8FAFC", padding: 5}}>
         <View style={{ height: getHp(0.09),alignItems: 'center', justifyContent: 'center',}}>
           <Text style={{ textAlign: 'center', color: "#475569"}}>Puedes grabar un Video/Audio Max 15 Secs de el reporte, o tomar una foto</Text>
