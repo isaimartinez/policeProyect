@@ -58,8 +58,7 @@ const ItemIncidencia = ({item}) => {
           <>
             {item?.url && (
               <>
-                <RenderFileReport url={item?.url}/>
-                {/* <p>url: <span>{item?.url}</span></p> */}
+                <RenderFileReport url={item?.url} public_id={item?.public_id}/>
               </>
               )}
             {item?.comment && (<p>Detalles: <span>{item?.comment}</span></p>)}

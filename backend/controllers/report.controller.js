@@ -39,8 +39,9 @@ export const setReportFile = async (req, res) => {
       const uploaded = await uploadFile(req.files.file.tempFilePath, req.files.file.mimetype)
       console.log("uploaded", uploaded)
       const url = uploaded.secure_url
+      const public_id = uploaded.public_id
       const report = await ReportModel.findOne({id: id})
-      const updated = await ReportModel.findByIdAndUpdate(report._id.toString(), {...report._doc, url}, {new: true})
+      const updated = await ReportModel.findByIdAndUpdate(report._id.toString(), {...report._doc, url, public_id}, {new: true})
       await fs.unlink(req.files.file.tempFilePath)
       res.status(201).json("OK");
       const data = JSON.stringify({action: "UPDATE_REPORT", payload: updated})

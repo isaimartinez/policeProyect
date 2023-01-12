@@ -1,14 +1,12 @@
 import React,{useEffect} from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import ActionSheet from "react-native-actions-sheet";
-import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import {getHp} from '../Apis/Dimensions'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useSelector, useDispatch } from 'react-redux'
 import {onStartRecord, onStopRecord, onStartPlay, onStopPlay} from '../Apis/Audio'
 import {setAudio, setIsPlaying} from '../redux/reducers/audioSlice'
 
-const audioRecorderPlayer = new AudioRecorderPlayer();
 
 const AudioSheet = ({actionSheetRef, onStoreAudio}) => {
   const dispatch = useDispatch()
@@ -47,7 +45,6 @@ const AudioSheet = ({actionSheetRef, onStoreAudio}) => {
   const handleAcceptAudio = () => {
     onStoreAudio(audio)
     onStopPlay()
-    dispatch(setIsPlaying(false))
   }
 
   return (

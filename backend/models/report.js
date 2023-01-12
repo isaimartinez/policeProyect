@@ -18,6 +18,7 @@ const reportSchema = mongoose.Schema({
   status: String,
   comment: String,
   url: String,
+  public_id: String,
   createdAt: {
     type: Date,
     default: new Date()
