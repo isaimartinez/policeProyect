@@ -6,12 +6,12 @@ import { wsActions } from './APIs/socket';
 import { useSelector, useDispatch } from 'react-redux'
 
 
-export const useOnLoad = ( lastMessage) => {
+export const useOnLoad = () => {
   const state = useSelector((state) => state)
   const {authData} = state.auth
   const {incidencias, selectedZones} = state.data
   const navigate = useNavigate()
-  // const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8085');
+  const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8085');
 
   useEffect(() => {
     onLoad()
