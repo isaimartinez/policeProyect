@@ -2,7 +2,7 @@ import {store} from '../redux/store'
 import {setIncidencias, setZones, setFilteredIncidencias} from '../redux/reducers/dataSlice'
 
 
-export const socket = (data) => {
+export const wsActions = (data) => {
   const state = store.getState();
   const {incidencias} = state.data
   switch (data.action) {
