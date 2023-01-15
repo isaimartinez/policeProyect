@@ -13,17 +13,17 @@ export const useOnLoad = () => {
   const navigate = useNavigate()
   const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8085');
 
-  useEffect(() => {
-    onLoad()
-    console.log("hey")
-  }, [])
+  // useEffect(() => {
+  //   onLoad()
+  //   console.log("hey")
+  // }, [])
 
   useEffect(() => {
     if(authData){
       navigate("/")
+      // onLoad()
     } else {
       navigate("/login")
-
     }
   }, [authData])
 

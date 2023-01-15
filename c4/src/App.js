@@ -1,15 +1,11 @@
 import React from 'react'
 import { Routes, Route} from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
 import { RequireAuth, Layout} from './components'
 import {Map, Login} from './pages/'
 import {useOnLoad} from './hooks'
 
 function App()  {
-  const state = useSelector((state) => state)
-
   useOnLoad()
-
 
   return (
     <div>
@@ -27,12 +23,10 @@ function App()  {
               </Route>
             </Routes>
           </div>
-          
         </div>
       </div>
     </div>
   )
-
 }
 
 export default App
