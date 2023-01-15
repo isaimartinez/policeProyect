@@ -2,8 +2,8 @@ import React from 'react'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch } from 'react-redux'
-import {setDrawingZone} from '../redux/reducers/viewSlice'
-import {setTempZone, saveZone} from '../redux/reducers/dataSlice'
+import {setDrawingZone} from '../../../redux/reducers/viewSlice'
+import {setTempZone, saveZone} from '../../../redux/reducers/dataSlice'
 import { SliderPicker } from 'react-color';
 import FormControl from '@mui/material/FormControl';
 import { toast } from 'react-toastify';

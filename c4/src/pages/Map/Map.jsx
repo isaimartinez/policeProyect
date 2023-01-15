@@ -1,31 +1,18 @@
-import React,{useState, useEffect} from 'react'
-import {FaMapMarker} from 'react-icons/fa'
+import React from 'react'
 import GoogleMapReact from 'google-map-react';
-import { center, mapOptions } from '../data/data';
-import { Navbar, Sidebar, IncidenciasBar, Marker } from '../components';
+import { center, mapOptions } from '../../data/data';
+import { Navbar, Sidebar, IncidenciasBar, Marker } from '../../components';
 import { useSelector, useDispatch } from 'react-redux'
-import {setTempZone} from '../redux/reducers/dataSlice'
 import {useOnMap, polygons} from './hooks.js'
 
-// let polygons = []
 const Map = () => {
   const dispatch = useDispatch()
   const state = useSelector((state) => state)
-  const {zones, tempZone, filteredIncidencias} = state.data
-  const {drawingZone, showZones, showTraffic} = state.view
+  const {filteredIncidencias} = state.data
+  const {showTraffic} = state.view
 
-  const {mapApi, setMapApi} =useOnMap()
+  const {handleApiLoaded, handleMapOnClick} = useOnMap()
 
-
-  const handleApiLoaded = (map, maps) => {
-    setMapApi({map, maps})
-  }
-
-  const handleMapOnClick = ({x, y, lat, lng, event}) => {
-    if(drawingZone){
-      dispatch(setTempZone({...tempZone, coords: [...tempZone.coords, {lat, lng}]}))
-    }
-  }
 
   return (
     <div className='flex relative'>

@@ -1,7 +1,8 @@
 import {useEffect, useState} from 'react'
-import {onLoad} from '../APIs/helpers'
+import {onLoad} from '../../APIs/helpers'
 import { useSelector, useDispatch } from 'react-redux'
-import { center, mapOptions } from '../data/data';
+import { center, mapOptions } from '../../data/data';
+import {setTempZone} from '../../redux/reducers/dataSlice'
 
 export let polygons = []
 
@@ -74,5 +75,16 @@ export const useOnMap = () => {
     }
   }
 
-  return {mapApi, setMapApi}
+  const handleApiLoaded = (map, maps) => {
+    setMapApi({map, maps})
+  }
+
+  const handleMapOnClick = ({x, y, lat, lng, event}) => {
+    if(drawingZone){
+      dispatch(setTempZone({...tempZone, coords: [...tempZone.coords, {lat, lng}]}))
+    }
+  }
+
+
+  return {mapApi, setMapApi, handleApiLoaded, handleMapOnClick}
 }

@@ -13,15 +13,9 @@ export const useOnLoad = () => {
   const navigate = useNavigate()
   const { sendMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8085');
 
-  // useEffect(() => {
-  //   onLoad()
-  //   console.log("hey")
-  // }, [])
-
   useEffect(() => {
     if(authData){
       navigate("/")
-      // onLoad()
     } else {
       navigate("/login")
     }
@@ -41,11 +35,3 @@ export const useOnLoad = () => {
   }, [selectedZones, incidencias])
 
 }
-
-//  const connectionStatus = {
-//     [ReadyState.CONNECTING]: 'Connecting',
-//     [ReadyState.OPEN]: 'Open',
-//     [ReadyState.CLOSING]: 'Closing',
-//     [ReadyState.CLOSED]: 'Closed',
-//     [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-//   }[readyState];

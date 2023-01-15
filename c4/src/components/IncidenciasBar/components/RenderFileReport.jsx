@@ -1,5 +1,5 @@
 import React from 'react'
-import { getKindOfFile } from '../APIs/helpers'
+import { getKindOfFile } from '../../../APIs/helpers'
 import ReactPlayer from 'react-player'
 import AudioPlayer from 'react-h5-audio-player';
 import {Audio} from 'cloudinary-react';

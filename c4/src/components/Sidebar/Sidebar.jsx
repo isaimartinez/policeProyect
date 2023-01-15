@@ -1,17 +1,15 @@
 import React from 'react'
 import {FaSignOutAlt} from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
-import {logout} from '../redux/reducers/authSlice'
+import {logout} from '../../redux/reducers/authSlice'
 
-import {NewZone, Filters} from './'
+import {NewZone, Filters} from './components'
 
 const Sidebar = () => {
   const state = useSelector((state) => state)
   const dispatch = useDispatch()
 
   const {activeMenu} = state.view
-  const {} = state.data
-
 
   const handleLogout = () => {
     dispatch(logout())

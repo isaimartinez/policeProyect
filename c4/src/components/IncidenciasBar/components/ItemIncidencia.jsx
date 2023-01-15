@@ -1,11 +1,11 @@
 import React,{useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {setIncidenciaActive} from '../redux/reducers/dataSlice'
+import {setIncidenciaActive} from '../../../redux/reducers/dataSlice'
 import Button from '@mui/material/Button';
-import {updateIncidencia} from '../APIs/'
-import {removeIncidencia} from '../redux/reducers/dataSlice'
+import {updateIncidencia} from '../../../APIs'
+import {removeIncidencia} from '../../../redux/reducers/dataSlice'
 import {FaComment} from 'react-icons/fa'
-import { getFileIcon } from '../APIs/helpers';
+import { getFileIcon } from '../../../APIs/helpers';
 import {RenderFileReport} from './'
 
 const Icons = ({url, comment}) => {
