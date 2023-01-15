@@ -5,70 +5,17 @@ import { center, mapOptions } from '../data/data';
 import { Navbar, Sidebar, IncidenciasBar, Marker } from '../components';
 import { useSelector, useDispatch } from 'react-redux'
 import {setTempZone} from '../redux/reducers/dataSlice'
+import {useOnMap, polygons} from './hooks.js'
 
-let polygons = []
+// let polygons = []
 const Map = () => {
   const dispatch = useDispatch()
   const state = useSelector((state) => state)
-  const [mapApi, setMapApi] = useState(null)
-  const [tempPolygon, setTempPolygon] = useState(null)
-  const {zones, tempZone, incidencias, filteredIncidencias} = state.data
+  const {zones, tempZone, filteredIncidencias} = state.data
   const {drawingZone, showZones, showTraffic} = state.view
 
-  useEffect(() => {
-    if(mapApi){
-      const {map,maps} = mapApi;
-      renderZones(map, maps)
-    } 
-  }, [mapApi, zones, showZones])
+  const {mapApi, setMapApi} =useOnMap()
 
-  useEffect(() => {
-    if(mapApi && drawingZone) {
-      const {map,maps} = mapApi;
-      renderTempZone(map, maps)
-    } else if (mapApi && !drawingZone){
-      tempPolygon?.setMap(null)
-    }
-  }, [mapApi, drawingZone, tempZone])
-  
-  const renderZones = (map, maps) => {
-    if(!showZones) {
-      for (let i = 0; i < polygons.length; i++) {
-        let element = polygons[i];
-        element.setMap(null)
-      }
-      polygons = []
-    } else {
-      for (let i = 0; i < zones.length; i++) {
-        const element = new maps.Polygon({
-          paths: zones[i].coords,
-          strokeColor: zones[i].color,
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: zones[i].color,
-          fillOpacity: 0.35
-        })
-        element.setMap(map);
-        polygons.push(element)
-      }
-    }
-  }
-
-  const renderTempZone = (map, maps) => {
-    tempPolygon?.setMap(null)
-    if(drawingZone) {
-      var element = new maps.Polygon({
-        paths: tempZone.coords,
-        strokeColor: tempZone.color,
-        strokeOpacity: 0.5,
-        strokeWeight: 2,
-        fillColor: tempZone.color,
-        fillOpacity: 0.35
-      })
-      element.setMap(map);
-      setTempPolygon(element)
-    }
-  }
 
   const handleApiLoaded = (map, maps) => {
     setMapApi({map, maps})
