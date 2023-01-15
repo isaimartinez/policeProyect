@@ -1,46 +1,11 @@
-import React,{useState} from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import {setIncidenciaActive} from '../../../redux/reducers/dataSlice'
+import React from 'react'
 import Button from '@mui/material/Button';
-import {updateIncidencia} from '../../../APIs'
-import {removeIncidencia} from '../../../redux/reducers/dataSlice'
-import {FaComment} from 'react-icons/fa'
-import { getFileIcon } from '../../../APIs/helpers';
 import {RenderFileReport} from './'
+import IconsReport from './IconsReport';
+import useItemReport from '../hooks/useItemReport';
 
-const Icons = ({url, comment}) => {
-  return (
-    <div className='flex flex-row absolute gap-1 right-2 top-1'>
-      {comment && <FaComment color='#94A3B8' className='' />}
-      {url && getFileIcon(url)}
-    </div>
-  )
-}
-
-const ItemIncidencia = ({item}) => {
-  const state = useSelector((state) => state)
-  const {incidencias} = state.data
-
-  const dispatch = useDispatch()
-  const [isActive, setIsActive] = useState(false)
-
-  const handleClickItem = (id) => {
-    setIsActive(!isActive)
-  }
-
-  const onMouseEnter = () => {
-    dispatch(setIncidenciaActive(item.id))
-  }
-
-  const onMouseLeave = () => {
-    dispatch(setIncidenciaActive(""))
-  }
-
-  const onResolve = async () => {
-    const newItem = {...item, status: "1", resolvedAt: new Date()}
-    await updateIncidencia(item._id, newItem)
-    dispatch(removeIncidencia(item.id))
-  }
+const ItemReport = ({item}) => {
+  const {handleClickItem, onMouseEnter, onMouseLeave, onResolve, isActive} = useItemReport(item)
 
   return (
     <div className='flex relative flex-col shadow-lg hover:shadow-xl w-[500px] p-2 bg-white opacity-60 hover:opacity-100 rounded cursor-pointer'
@@ -49,7 +14,7 @@ const ItemIncidencia = ({item}) => {
       onMouseEnter={() => {onMouseEnter()}}
       onMouseLeave={() => {onMouseLeave()}}
     >
-      <Icons url={item?.url} comment={item?.comment}/>
+      <IconsReport url={item?.url} comment={item?.comment}/>
       <p>Nombre: <span>{item.name}</span></p>
       <p>Número: <span>{item.phoneNumber}</span></p>
       <p>Dirección: <span>{item.address}</span></p>
@@ -76,4 +41,4 @@ const ItemIncidencia = ({item}) => {
   )
 }
 
-export default ItemIncidencia
+export default ItemReport

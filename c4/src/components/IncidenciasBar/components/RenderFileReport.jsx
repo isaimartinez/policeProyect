@@ -27,19 +27,6 @@ const FileReport = ({url, public_id}) => {
     )
   }
   if(kindOfFile == "audio") {
-    // return (
-    //   <div className='flex controls'>
-    //   <AudioPlayer
-    //     autoPlay
-    //     src={url}
-    //     showJumpControls={false}
-    //     showSkipControls={false}
-    //     loop
-    //     // other props here
-    //   />
-    //   </div>
-    // )
-
     return (
       <div className='flex items-center justify-center'>
         <Audio cloudName='dvnx0dwis'
