@@ -7,9 +7,7 @@ import Select from '@mui/material/Select';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
-
 import { MenuProps } from '../../../utils'
-
 import {setShowZones, setShowTraffic} from '../../../redux/reducers/viewSlice'
 import useFilters from '../hooks/userFilters';
 
