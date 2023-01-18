@@ -2,6 +2,7 @@ import React from 'react'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 import {render as rtlRender, fireEvent, waitFor, screen} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 import { Provider  } from 'react-redux'
 import Login from '../Login/Login'
@@ -49,7 +50,7 @@ test('On empty Password input disabled login button', () => {
 test("Id input should change", () => {
   render(<Login />);
   const pswInput = screen.getByLabelText(/Password/i);
-  const testValue = "test";
+  const testValue = "xd1";
   fireEvent.change(pswInput, { target: { value: testValue } });
   expect(pswInput.value).toBe(testValue);
 });
@@ -57,26 +58,37 @@ test("Id input should change", () => {
 test("Password input should change", () => {
   render(<Login />);
   const idInput = screen.getByLabelText(/Id/i);
-  const testValue = "test";
+  const testValue = "xd2";
 
   fireEvent.change(idInput, { target: { value: testValue } });
   expect(idInput.value).toBe(testValue);
 });
 
 test('Enabled login button when id and password inputs have text', () => {
+  const user = userEvent.setup()
+
   render(<Login />)
   const pswInput = screen.getByLabelText(/Password/i)
   const idInput = screen.getByLabelText(/Id/i)
-  const testValue = "test";
+  const testValue = "prueba";
+  // fireEvent.change(pswInput, {target: {value: testValue}})
+  // fireEvent.change(idInput, {target: {value: testValue}})
+  // expect(idInput.value).toBe(testValue);
+  // expect(pswInput.value).toBe(testValue);
 
-  fireEvent.change(pswInput, {target: {value: testValue}})
-  fireEvent.change(idInput, {target: {value: testValue}})
+
+
+  user.type(pswInput, testValue)
+  user.type(idInput, testValue)
   expect(idInput.value).toBe(testValue);
-  expect(pswInput.value).toBe(testValue);
-  const LoginBtn = screen.getByText(/Iniciar Sesión/i)
-  console.log("hey",LoginBtn)
-  expect(LoginBtn.closest('button')).not.toBeDisabled();
+  // expect(pswInput.value).toBe(testValue);
 
+  // const enabledButton = screen.getByText(/Enabled Button/i)
+  // expect(enabledButton).toBeInTheDocument()
+
+
+  const LoginBtn = screen.getByText(/Iniciar Sesión/i)
+  expect(LoginBtn.closest('button')).not.toBeDisabled();
 })
 
 
