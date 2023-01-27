@@ -1,96 +1,17 @@
-import React,{useState, useRef} from 'react'
-import { View, Text, TouchableOpacity, Platform, ActivityIndicator } from 'react-native'
+import React from 'react'
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { useSelector, useDispatch } from 'react-redux'
 import {Button, TextField, AudioSheet} from '../../components'
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {getHp} from '../../Apis/Dimensions'
-import {postFile, postComment} from '../../Apis/axios'
-import {cameraImageOptions, cameraVideoOptions, libraryOptions} from '../../Apis/utils'
 import {styles} from '../../styles'
+import { useDetails } from './useDetails'
 
 const Details = ({route, navigation}) => {
-  const {user} = useSelector((state) => state.main)
-  const dispatch = useDispatch()
-  const { id} = route.params;
-  const actionSheetRef = useRef(null);
-  const [file, setFile] = useState(null)
-  const [subiendo, setSubiendo] = useState(false)
-  const [selectedBtn, setSelectedBtn] = useState("")
-  const [comment, setComment] = useState("")
 
-  const handlePostData = async () => {
-    try {
-      setSubiendo(true)
-      if(comment.length > 0) {
-        await postComment(comment, id)
-      }
-      if(file){
-        let formData = new FormData()
-        formData.append("file", {...file,
-          uri: Platform.OS === 'android' ? file.uri : file.uri.replace('file://', ''),
-          name: `file-report`,
-          type:file.type,
-        });
-        console.log("id", id)
-        await postFile(formData, id)
-      }
-      setSubiendo(false)
-      navigation.goBack()
-    } catch (error) {
-      console.log("error", error)
-    }
-
-  }
-
-  const onLaunchCameraImage = async () => {
-    try {
-      const result = await launchCamera(cameraImageOptions);
-      if(result?.didCancel)return false
-      setFile(result.assets[0])
-      setSelectedBtn("cameraImage")
-    } catch (error) {
-      console.log("error", error)
-    }
-  }
-
-  const onLaunchCameraVideo = async () => {
-    try {
-      const result = await launchCamera(cameraVideoOptions);
-      if(result?.didCancel)return false
-      setFile(result?.assets[0])
-      setSelectedBtn("cameraVideo")
-    } catch (error) {
-      console.log("error", error)
-    }
-  }
-
-  const onLaunchLibrary = async () => {
-    try {
-      const result = await launchImageLibrary(libraryOptions);
-      if(result?.didCancel)return false
-      setFile(result.assets[0])
-      setSelectedBtn("library")
-    } catch (error) {
-      console.log("error", error)
-    }
-  }
-
-  const onStoreAudio = (audio) => {
-    setFile({uri:audio, type: "video/mp4",})
-    setSelectedBtn("audio")
-    actionSheetRef.current?.hide();
-  }
-
-  const showAudioSheet = () => {
-    actionSheetRef.current?.show();
-
-  }
-
-  const isFileBtnSelected = (btn) => {
-    return btn == selectedBtn ? {backgroundColor: "#93c5fd"} : {backgroundColor: "#e2e8f0"}
-  }
+  const {actionSheetRef, file, setFile, subiendo, setSubiendo, selectedBtn, setSelectedBtn, comment, setComment, handlePostData,
+    onLaunchCameraImage, onLaunchCameraVideo, onLaunchLibrary, onStoreAudio, showAudioSheet, isFileBtnSelected
+  } = useDetails(route, navigation)
 
   if(subiendo) {
     return(
