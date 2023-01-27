@@ -1,51 +1,13 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import ActionSheet from "react-native-actions-sheet";
-import {getHp} from '../Apis/Dimensions'
+import {getHp} from '../../Apis/Dimensions'
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { useSelector, useDispatch } from 'react-redux'
-import {onStartRecord, onStopRecord, onStartPlay, onStopPlay} from '../Apis/Audio'
-import {setAudio, setIsPlaying} from '../redux/reducers/audioSlice'
-
+import { useAudioSheet } from './useAudioSheet';
 
 const AudioSheet = ({actionSheetRef, onStoreAudio}) => {
-  const dispatch = useDispatch()
-  const {playTime, duration, isRecording, isPlaying, audio} = useSelector((state) => state.audio)
+  const {isRecording, isPlaying, audio,handleRecordSwitch, handlePlaySwitch, handleRecordAgain, handleAcceptAudio} = useAudioSheet(onStoreAudio)
 
-  useEffect(() => {
-    if(playTime&& duration){
-      if(playTime == duration){
-        onStopPlay()
-      }
-    }
-  }, [playTime, duration])
-  
-
-
-  const handleRecordSwitch = () => {
-    if(!isRecording) {
-      onStartRecord()
-    } else {
-      onStopRecord()
-    }
-  }
-
-  const handlePlaySwitch = () => {
-    if(!isPlaying){
-      onStartPlay()
-    } else {
-      onStopPlay()
-    }
-  }
-
-  const handleRecordAgain = () => {
-    dispatch(setAudio(null))
-  }
-
-  const handleAcceptAudio = () => {
-    onStoreAudio(audio)
-    onStopPlay()
-  }
 
   return (
     
