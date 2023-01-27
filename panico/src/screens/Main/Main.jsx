@@ -1,9 +1,9 @@
 import React,{useState, useEffect} from 'react'
 import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import nueveOnce from '../assets/911.png'
-import footer from '../assets/footer.jpeg'
-import { generateReport } from '../Apis/Reports'
+import nueveOnce from '../../assets/911.png'
+import footer from '../../assets/footer.jpeg'
+import { generateReport } from '../../Apis/Reports'
 
 let interval
 const Main = () => {

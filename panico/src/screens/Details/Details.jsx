@@ -2,13 +2,13 @@ import React,{useState, useRef} from 'react'
 import { View, Text, TouchableOpacity, Platform, ActivityIndicator } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useSelector, useDispatch } from 'react-redux'
-import {Button, TextField, AudioSheet} from '../components'
+import {Button, TextField, AudioSheet} from '../../components'
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {getHp} from '../Apis/Dimensions'
-import {postFile, postComment} from '../Apis/axios'
-import {cameraImageOptions, cameraVideoOptions, libraryOptions} from '../Apis/utils'
-import {styles} from '../styles/'
+import {getHp} from '../../Apis/Dimensions'
+import {postFile, postComment} from '../../Apis/axios'
+import {cameraImageOptions, cameraVideoOptions, libraryOptions} from '../../Apis/utils'
+import {styles} from '../../styles'
 
 const Details = ({route, navigation}) => {
   const {user} = useSelector((state) => state.main)

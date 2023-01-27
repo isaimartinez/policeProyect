@@ -2,9 +2,7 @@ import React,{useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './src/screens/login';
-import Main from './src/screens/Main';
-import Details from './src/screens/Details'
+import {Login, Main, Details} from './src/screens/';
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchData } from './src/redux/reducers/mainSlice';
 

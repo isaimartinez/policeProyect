@@ -1,27 +1,14 @@
-import { View, Text, SafeAreaView, Image } from 'react-native'
-import React,{useState} from 'react'
-import {TextField, Button} from '../components'
-import { useSelector, useDispatch } from 'react-redux'
-import { saveData } from '../redux/reducers/mainSlice'
+import { View, SafeAreaView, Image } from 'react-native'
+import React from 'react'
+import {TextField, Button} from '../../components'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import logo from '../assets/estrella.jpg'
-import footer from '../assets/footer.jpeg'
-import {getHp} from '../Apis/Dimensions'
+import logo from '../../assets/estrella.jpg'
+import footer from '../../assets/footer.jpeg'
+import {getHp} from '../../Apis/Dimensions'
+import { useLogin } from './useLogin'
 
 const Login = () => {
-  const dispatch = useDispatch()
-  const [phoneNumber, setPhoneNumber] = useState("")
-  const [name, setName] = useState("")
-
-  const storeInfo = () => {
-    console.log("phone ", phoneNumber)
-    console.log("name ", name)
-    // Verificar if empty
-    
-
-    let data = {phoneNumber, name}
-    dispatch(saveData({data, key:"userInfo"}))
-  }
+  const {phoneNumber, setPhoneNumber, name, setName, storeInfo} = useLogin()
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: "#F8FAFC"}}>

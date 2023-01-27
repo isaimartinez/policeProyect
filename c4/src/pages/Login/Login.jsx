@@ -13,7 +13,7 @@ const Login = () => {
         <TextField id="filled-basic" type={"password"} label="Password" variant="filled" value={key} onChange={e => setKey(e.target.value)}/>
 
         <Button disabled={isDisabledBtn} type='submit' variant="outlined" size='large'>Iniciar Sesión</Button>
-        <p>{isDisabledBtn ? "Is Disabled Button" : "Enabled Button"}</p>
+        {/* <p>{isDisabledBtn ? "Is Disabled Button" : "Enabled Button"}</p> */}
       </form>
     </div>
   )
