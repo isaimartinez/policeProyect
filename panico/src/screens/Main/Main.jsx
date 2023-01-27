@@ -1,41 +1,12 @@
-import React,{useState, useEffect} from 'react'
+import React from 'react'
 import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
 import nueveOnce from '../../assets/911.png'
 import footer from '../../assets/footer.jpeg'
-import { generateReport } from '../../Apis/Reports'
+import { useMain } from './useMain'
 
-let interval
 const Main = () => {
-  const {user, sendingReport} = useSelector((state) => state.main)
-  const dispatch = useDispatch()
 
-  const [counter, setCounter] = useState(5)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    if(counter == 0) {
-      clearInterval(interval)
-      generateReport(user)
-      setIsVisible(false)
-      setCounter(5)
-    }
-  }, [counter])
-  
-
-  const onPressIn = () => {
-    // generateReport(user)
-    setIsVisible(true)
-    interval = setInterval(() => {
-      setCounter(prev => prev-1)
-    }, 1000);
-  }
-
-  const onPressOut = () => {
-    clearInterval(interval)
-    setCounter(5)
-    setIsVisible(false)
-  }
+  const { sendingReport, counter, isVisible, onPressIn, onPressOut} = useMain()
 
 
   return (
@@ -48,7 +19,6 @@ const Main = () => {
           shadowOffset: {width: -2, height: 4},
           shadowOpacity: 0.8,
           shadowRadius: 3,}}
-          // onPress={handleSos}
           onPressIn={onPressIn}
           onPressOut={onPressOut}
         >
