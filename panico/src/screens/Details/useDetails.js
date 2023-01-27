@@ -1,15 +1,11 @@
 import {useState, useRef} from 'react'
 import { Platform } from 'react-native'
-
-import { useSelector, useDispatch } from 'react-redux'
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {cameraImageOptions, cameraVideoOptions, libraryOptions} from '../../Apis/utils'
 import {postFile, postComment} from '../../Apis/axios'
 
 
 export const useDetails = (route, navigation) => {
-  const {user} = useSelector((state) => state.main)
-  const dispatch = useDispatch()
   const { id} = route.params;
   const actionSheetRef = useRef(null);
   const [file, setFile] = useState(null)
