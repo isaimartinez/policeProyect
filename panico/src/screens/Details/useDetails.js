@@ -3,6 +3,7 @@ import { Platform } from 'react-native'
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {cameraImageOptions, cameraVideoOptions, libraryOptions} from '../../Apis/utils'
 import {postFile, postComment} from '../../Apis/axios'
+import { Alert, Vibration } from 'react-native';
 
 
 export const useDetails = (route, navigation) => {
@@ -30,6 +31,15 @@ export const useDetails = (route, navigation) => {
         await postFile(formData, id)
       }
       setSubiendo(false)
+
+      Alert.alert(
+        "Tu emergencia ha sido recibida",
+        "Estamos trabajando en ello.",
+        [
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
+
       navigation.goBack()
     } catch (error) {
       console.log("error", error)
