@@ -25,14 +25,14 @@ const App = () => {
       {/* <Stack.Navigator initialRouteName={user && "Details"}> */}
       <Stack.Navigator>
         {
-          user ? (
+          !user ? (
             <>
               <Stack.Screen name="Main" component={Main} options={{ title: 'Botón de Pánico' }} />
               <Stack.Screen name="Details" component={Details} options={{ title: 'Detalles' }} />
             </>
           ) : (
             <>
-              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Login" component={Login} options={{headerShown: false,}} />
             </>
           )
         }

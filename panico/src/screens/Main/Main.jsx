@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
-import nueveOnce from '../../assets/911.png'
-import footer from '../../assets/footer.jpeg'
+import nueveOnce from '../../assets/911-removebg.png'
+import footer from '../../assets/footer-removebg.png'
 import { useMain } from './useMain'
 
 const Main = () => {
