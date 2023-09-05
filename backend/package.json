@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -27,5 +26,7 @@
     "nodemon": "^2.0.20",
     "socket.io": "^4.5.3",
     "ws": "^8.11.0"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
