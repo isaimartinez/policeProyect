@@ -23,7 +23,7 @@ export const useOnLoad = () => {
   }, [authData])
 
   useEffect(() => {
-    if (lastMessage !== null) {
+    if (lastMessage !== null && lastMessage.data != 'ping') {
       let data = JSON.parse(lastMessage.data)
       console.log("lastMessage", data)
       wsActions(data)
