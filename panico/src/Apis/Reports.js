@@ -8,9 +8,10 @@ import {setSendingReport} from '../redux/reducers/mainSlice'
 import * as RootNavigation from '../navigation/RootNavigation';
 
 export const generateReport = async (user) => {
+  console.log("generateReport")
   const coords = await getCoords()
+  console.log("coords", coords)
   const id = genId()
-  console.log("hey", coords)
   try {
     let newReport = {
       ...coords,

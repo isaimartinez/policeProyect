@@ -1,9 +1,17 @@
 import Geolocation from '@react-native-community/geolocation';
 
 export const getCoords = async () => {
-  return new Promise((resolve, reject) => {
+  try {
+    const options = {enableHighAccuracy: false}
+    console.log("getCoords")
     Geolocation.getCurrentPosition(info => {
-      resolve(info.coords)
-    });
-  })
+      console.log("INFO", info)
+      return info.coords
+    },
+    (error) => console.error(error),
+    // {enableHighAccuracy: false,maximumAge: 10000}
+    );
+  } catch (error) {
+    console.error(error)
+  }
 }

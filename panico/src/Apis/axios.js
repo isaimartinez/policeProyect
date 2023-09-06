@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API = axios.create({baseURL: 'http://localhost:5000'})
+const API = axios.create({baseURL: 'https://alpha-colon-b486ce862e2a.herokuapp.com'})
 // const API = axios.create({baseURL: 'http://10.15.19.234:5000'})
 
 export const createReport = (incidencia) => API.post("/report/createReport", {incidencia})
