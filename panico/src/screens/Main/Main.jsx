@@ -31,7 +31,7 @@ const Main = () => {
           
         </TouchableOpacity>
         <View style={{marginTop: 20, marginHorizontal: 100, alignItems: 'center'}}>
-          <Text style={{color: "#475569", textAlign: 'center'}}>Manten presionado el botón por 5 segundos para dar alerta</Text>
+          <Text style={{color: "#475569", textAlign: 'center'}}>Manten presionado el botón por 5 segundos</Text>
         </View>
 
       </View>
