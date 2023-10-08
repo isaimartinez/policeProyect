@@ -1,21 +1,20 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
-import nueveOnce from '../../assets/911-removebg.png'
-import footer from '../../assets/footer-removebg.png'
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { useMain } from './useMain'
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const Main = () => {
 
-  const { sendingReport, counter, isVisible, onPressIn, onPressOut} = useMain()
+  const { sendingReport, counter, isVisible, onPressIn, onPressOut, handleCall} = useMain()
 
+  
 
   return (
     <View style={{flex: 1,  justifyContent: 'center', backgroundColor: "#F8FAFC"}}>
-      <View style={{flex: 0.5, alignItems: 'center',}}>
-        <Image source={nueveOnce} resizeMode="stretch" style={{width: 170, height: 120, borderRadius: 10,  marginTop: 25}}/>
+      <View style={{flex: 0.1, alignItems: 'center',}}>
       </View>
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-around'}}>
-        <TouchableOpacity style={{ minHeight: 200, minWidth: 200,backgroundColor: 'rgb(37, 99, 235)', alignItems: 'center', justifyContent: 'center', borderRadius: 100, shadowColor: '#171717',
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <TouchableOpacity style={{ minHeight: 200, minWidth: 200, backgroundColor: '#FF0000', alignItems: 'center', justifyContent: 'center', borderRadius: 100, shadowColor: '#171717',
           shadowOffset: {width: -2, height: 4},
           shadowOpacity: 0.8,
           shadowRadius: 3,}}
@@ -31,13 +30,16 @@ const Main = () => {
           }
           
         </TouchableOpacity>
-        <View style={{marginTop: 5}}>
-          <Text style={{color: "#475569"}}>Manten presionado el botón por 5 segundos para dar alerta</Text>
+        <View style={{marginTop: 20, marginHorizontal: 100, alignItems: 'center'}}>
+          <Text style={{color: "#475569", textAlign: 'center'}}>Manten presionado el botón por 5 segundos para dar alerta</Text>
         </View>
+
       </View>
-      <View style={{flex: 0.5, justifyContent: 'flex-end', alignItems: 'center',}}>
-        <Image source={footer} style={{width: 135, height: 135, borderRadius: 20}}
-          resizeMode="contain"/>
+      <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center',}}>
+        <TouchableOpacity style={{alignItems: 'center'}} onPress={handleCall}>
+          <Icon name="phone" size={30} color="#64748b" style={{marginBottom: 10}}/>
+          <Text>Llamada de emergencia 911</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

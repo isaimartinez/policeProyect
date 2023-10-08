@@ -43,6 +43,16 @@ export const useDetails = (route, navigation) => {
       navigation.goBack()
     } catch (error) {
       console.log("error", error)
+
+      Alert.alert(
+        "Tu emergencia ha sido recibida",
+        "Estamos trabajando en ello.",
+        [
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
+
+      navigation.goBack()
     }
 
   }

@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import { Linking, Platform } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { generateReport } from '../../Apis/Reports'
 
@@ -33,5 +34,22 @@ export const useMain = () => {
     setIsVisible(false)
   }
 
-  return {user, sendingReport,counter, setCounter, isVisible, setIsVisible, onPressIn, onPressOut}
+  const handleCall = () => {
+    console.log("handleCall")
+    let phoneNumber = '';
+  
+    if (Platform.OS === 'android') {
+      phoneNumber = 'tel:${911}';
+    } else {
+      phoneNumber = 'telprompt:${911}';
+    }
+  
+    try {
+      Linking.openURL(phoneNumber);
+    } catch (err) {
+      console.error('Failed to dial:', err);
+    }
+  };
+
+  return {user, sendingReport,counter, setCounter, isVisible, setIsVisible, onPressIn, onPressOut, handleCall}
 }

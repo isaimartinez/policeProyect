@@ -18,10 +18,11 @@ export const generateReport = async (user) => {
       ...user,
       id
     }
+    console.log("newReport", newReport)
     store.dispatch(setSendingReport(true))
     const res = await createReport(newReport)
     console.log("res", res.data)
-    Vibration.vibrate(VIBRATION_PATTERN)
+    // Vibration.vibrate(VIBRATION_PATTERN)
     Alert.alert(
       "Reporte exitoso",
       "Puedes añadir una foto o video/audio(max 15 segundos) como evidencia.",

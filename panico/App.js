@@ -27,7 +27,7 @@ const App = () => {
         {
           user ? (
             <>
-              <Stack.Screen name="Main" component={Main} options={{ title: 'Botón de Pánico' }} />
+              <Stack.Screen name="Main" component={Main} options={{ title: 'Botón de Pánico', headerStyle: {backgroundColor: '#4c669f'}, headerTintColor: 'white' }} />
               <Stack.Screen name="Details" component={Details} options={{ title: 'Detalles' }} />
             </>
           ) : (
